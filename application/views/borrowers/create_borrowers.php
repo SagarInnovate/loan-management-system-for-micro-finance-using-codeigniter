@@ -29,7 +29,7 @@
                                             <p class="card-category">Complete your client information</p>
                                         </div>
                                         <div class="card-body">
-                                            <form id="form-register" enctype="mutlipart/form-data" action="<?php //echo base_url()."/register-borrowers" 
+                                            <form id="form-register" enctype="mutlipart/form-data" action="<?php echo base_url()."/register-borrowers" 
                                                                                                             ?>" method="POST">
                                                 <div class="row">
                                                     <div class="col-md-4">
@@ -136,7 +136,7 @@
                                                                 <div class="form-group">
                                                                     <label class="bmd-label-floating">Literacy
                                                                         Level</label>
-                                                                    <input type="text" class="form-control literacy " name="literacy " required>
+                                                                    <input type="text" class="form-control literacy"  name="literacy_level" value="this value" required>
                                                                 </div>
                                                             </div>
 
@@ -252,7 +252,7 @@
                 <h5 class="card-title">Upload Aadhar Card</h5>
                 <div class="form-group">
                     <label class="bmd-label-floating">Aadhar Number</label>
-                    <input type="text" class="form-control city" value="" name="aadhar_no" required>
+                    <input type="text" class="form-control city" value="" name="aadhar_card_number" required>
                   
                 </div>
                 <input type="file" class="form-control" id="aadharFile" name="aadhar_card" accept="application/pdf" required>
@@ -268,7 +268,7 @@
                 <h5 class="card-title">Upload PAN Card</h5>
                 <div class="form-group">
                     <label class="bmd-label-floating">PAN Number</label>
-                    <input type="text" class="form-control city" value="" name="pan_card_no" required>
+                    <input type="text" class="form-control city" value="" name="pan_card_number" required>
                    
                 </div>
                 <input type="file" class="form-control" id="panFile" name="pan_card" accept="application/pdf" required>
@@ -290,7 +290,7 @@
                 <h5 class="card-title">Upload Electricity Bill</h5>
                 <div class="form-group">
                     <label class="bmd-label-floating">Electricity Bill Number</label>
-                    <input type="text" class="form-control city" value="" name="electricity_bill_no" required>
+                    <input type="text" class="form-control city" value="" name="electricity_bill_number" required>
                 
                 </div>
                 <input type="file" class="form-control" id="electricityBillFile" name="electricity_bill" accept="application/pdf,image/*" required>
@@ -307,7 +307,7 @@
                 <h5 class="card-title">Upload Application Form</h5>
                 <div class="form-group">
                     <label class="bmd-label-floating">Application Number</label>
-                    <input type="text" class="form-control city" value="" name="app_no" required>
+                    <input type="text" class="form-control city" value="" name="application_form_number" required>
                       </div>
                 <input type="file" class="form-control" id="applicationFile" name="application" accept="application/pdf,image/*" required>
             
@@ -320,13 +320,13 @@
     </div>
 </div>
 
-<input type="hidden" id="aadhar_url" name="aadhar_url" value="">
-<input type="hidden" id="pan_url" name="pan_url" value="">
-<input type="hidden" id="electricity_url" name="electricity_url" value="">
-<input type="hidden" id="application_url" name="application_url" value="">
+<input type="hidden" id="aadhar_url" name="aadhar_card_document" value="">
+<input type="hidden" id="pan_url" name="pan_card_document" value="">
+<input type="hidden" id="electricity_url" name="electricity_bill_document" value="">
+<input type="hidden" id="application_url" name="application_form_document" value="">
 <input type="hidden" id="passbook_url" name="passbook_url" value="">
-<input type="hidden" id="gaadhar_url" name="gaadhar_url" value="">
-<input type="hidden" id="gpan_url" name="gpan_url" value="">
+<input type="hidden" id="gaadhar_url" name="adhar_uploaded_url" value="">
+<input type="hidden" id="gpan_url" name="pan_card_uploaded_url" value="">
 
 
 
@@ -398,7 +398,7 @@
                                                                                 <div class="form-group">
                                                                                     <label class="bmd-label-floating">Account
                                                                                         Number</label>
-                                                                                    <input type="text" class="form-control" name="account_number" required>
+                                                                                    <input type="text" class="form-control" name="passbook_no" required>
                                                                                 </div>
                                                                             </div>
 
@@ -455,14 +455,14 @@
                                                                                 <div class="form-group">
                                                                                     <label class="bmd-label-floating">Name
                                                                                         of Guarantor</label>
-                                                                                    <input type="text" class="form-control" name="guarantor_name" required>
+                                                                                    <input type="text" class="form-control" name="name" required>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
                                                                                     <label class="bmd-label-floating">Relation
                                                                                         with Borrower</label>
-                                                                                    <input type="text" class="form-control" name="relation_with_borrower" required>
+                                                                                    <input type="text" class="form-control" name="relation" required>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -471,7 +471,7 @@
                                                                                 <div class="form-group">
                                                                                     <label class="bmd-label-floating">Aadhar
                                                                                         Number</label>
-                                                                                    <input type="text" class="form-control" name="gaadhar_number" required>
+                                                                                    <input type="text" class="form-control" name="adhar_no" required>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-6">
@@ -502,7 +502,7 @@
                                                                                 <div class="form-group">
                                                                                     <label class="bmd-label-floating">PAN
                                                                                         Number</label>
-                                                                                    <input type="text" class="form-control" name="gpan_number" required>
+                                                                                    <input type="text" class="form-control" name="pan_card_no" required>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-6">
@@ -532,7 +532,7 @@
                                                                                 <div class="form-group">
                                                                                     <label class="bmd-label-floating">Expense
                                                                                         Detail</label>
-                                                                                    <textarea class="form-control" rows="3" name="expense_detail" required></textarea>
+                                                                                    <textarea class="form-control" rows="3" name="expense_details" required></textarea>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -609,10 +609,11 @@
    
     
     var url = '<?php echo base_url("documentupload/upload") ?>' + documentType + 'card';
+    console.log(url)
     var spinnerId = documentType + 'Spinner';
     var spinner = document.getElementById(spinnerId);
     spinner.style.display = 'block';
-    
+
     fetch(url, {
         method: 'POST',
         body: formData

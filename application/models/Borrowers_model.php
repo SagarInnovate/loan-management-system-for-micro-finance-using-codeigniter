@@ -19,6 +19,12 @@ class Borrowers_model extends CI_Model {
                 'birthdate' => $data['birthdate'],
                 'gender' => $data['gender'],
                 'added_info' => $data['info'],
+                'father_name' => $data['father_name'],
+				'mother_name' => $data['mother_name'],
+				'literacy_level' => $data['literacy_level'],
+				'marital_status' => $data['marital_status'],			
+				
+				
             );
         }else{
              $client_data = array(
@@ -30,6 +36,10 @@ class Borrowers_model extends CI_Model {
                 'birthdate' => $data['birthdate'],
                 'gender' => $data['gender'],
                 'added_info' => $data['info'],
+                'father_name' => $data['father_name'],
+				'mother_name' => $data['mother_name'],
+				'literacy_level' => $data['literacy_level'],
+				'marital_status' => $data['marital_status'],	
             );
         }
        
@@ -48,11 +58,53 @@ class Borrowers_model extends CI_Model {
             'postal_code' => $data['postal_code'],
         );
 
+        $bank_details=array(
+            // bank details
+            'account_no' => $data['account_no'],
+            'bank_name' => $data['bank_name'],
+            'ifsc_code' => $data['ifsc_code'],
+            'passbook_no' => $data['passbook_no'],
+            'branch_address' => $data['branch_address'],
+            'passbook_url' => $data['passbook_url'],
+            
+        );
+
+        $documents=array(
+            // documents info
+            'account_no' => $data['account_no'],
+            'aadhar_card_number' => $data['aadhar_card_number'],
+            'electricity_bill_number' => $data['electricity_bill_number'],
+            'pan_card_number' => $data['pan_card_number'],
+            'application_form_number' => $data['application_form_number'],
+            'aadhar_card_document' => $data['aadhar_card_document'],
+            'pan_card_document' => $data['pan_card_document'],
+            'electricity_bill_document' => $data['electricity_bill_document'],
+            'application_form_document' => $data['application_form_document'],
+
+        );
+        $guarantors_details=array(
+           
+            // guarantors details
+            'account_no' => $data['account_no'],
+            'name' => $data['name'],
+            'relation' => $data['relation'],
+            'adhar_no' => $data['adhar_no'],
+            'pan_card_no' => $data['pan_card_no'],
+            'expense_details' => $data['expense_details'], 
+            'adhar_uploaded_url' => $data['adhar_uploaded_url'],
+            'pan_card_uploaded_url' => $data['pan_card_uploaded_url'],
+        
+        );
+
+
         $this->db->insert('clients',$client_data);
 
         $this->db->insert('names',$client_name);
 
         $this->db->insert('address',$client_address);
+        $this->db->insert('documents',$documents);
+        $this->db->insert('guarantors_details',$guarantors_details); 
+        $this->db->insert('bank_details',$bank_details);
 
         return $this->db->affected_rows();
     }

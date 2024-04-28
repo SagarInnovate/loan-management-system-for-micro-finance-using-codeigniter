@@ -118,11 +118,13 @@ class Borrowers extends CI_Controller {
 		if(!$this->upload->do_upload('client_img')){
 
 			$client_data = array(
+				// personal info
 				'account_no' => $this->input->post('account_no'),
 				'client_img' => "",
 				'mname' => $this->input->post('mname'),
 				'gname' => $this->input->post('gname'),
 				'lname' => $this->input->post('lname'),
+				
 				'email' => $this->input->post('email'),
 				'number1' => $this->input->post('number1'),
 				'number2' => $this->input->post('number2'),
@@ -136,7 +138,34 @@ class Borrowers extends CI_Controller {
 				'info' => $this->input->post('info'),
 				'father_name' => $this->input->post('father_name'),
 				'mother_name' => $this->input->post('mother_name'),
-				'marital_status' => $this->input->post('marital_status'),
+				'literacy_level' => $this->input->post('literacy_level'),
+				'marital_status' => $this->input->post('marital_status'),			
+				// documents info
+				'aadhar_card_number' => $this->input->post('aadhar_card_number'),
+				'electricity_bill_number' => $this->input->post('electricity_bill_number'),
+				'pan_card_number' => $this->input->post('pan_card_number'),
+				'application_form_number' => $this->input->post('application_form_number'),
+				'aadhar_card_document' => $this->input->post('aadhar_card_document'),
+				'pan_card_document' => $this->input->post('pan_card_document'),
+				'electricity_bill_document' => $this->input->post('electricity_bill_document'),
+				'application_form_document' => $this->input->post('application_form_document'),
+				'passbook_url' => $this->input->post('passbook_url'),
+				'adhar_uploaded_url' => $this->input->post('adhar_uploaded_url'),
+				'pan_card_uploaded_url' => $this->input->post('pan_card_uploaded_url'),
+				// bank details
+				'bank_name' => $this->input->post('bank_name'),
+				'ifsc_code' => $this->input->post('ifsc_code'),
+				'passbook_no' => $this->input->post('passbook_no'),
+				'branch_address' => $this->input->post('branch_address'),
+				// guarantors details
+				'name' => $this->input->post('name'),
+				'relation' => $this->input->post('relation'),
+				'adhar_no' => $this->input->post('adhar_no'),
+				'pan_card_no' => $this->input->post('pan_card_no'),
+				'expense_details' => $this->input->post('expense_details'),
+				
+				
+
 
 			);
 
@@ -183,7 +212,35 @@ class Borrowers extends CI_Controller {
 				'postal_code' => $this->input->post('postal_code'),
 				'birthdate' => $this->input->post('birthdate'),
 				'gender' => $this->input->post('inlineRadioOptions'),
-				'info' => $this->input->post('info')
+				'info' => $this->input->post('info'),
+				'father_name' => $this->input->post('father_name'),
+				'mother_name' => $this->input->post('mother_name'),
+				'literacy_level' => $this->input->post('literacy_level'),
+				'marital_status' => $this->input->post('marital_status'),			
+				// documents info
+				'aadhar_card_number' => $this->input->post('c'),
+				'electricity_bill_number' => $this->input->post('electricity_bill_number'),
+				'pan_card_number' => $this->input->post('pan_card_number'),
+				'application_form_number' => $this->input->post('application_form_number'),
+				'aadhar_card_document' => $this->input->post('aadhar_card_document'),
+				'pan_card_document' => $this->input->post('pan_card_document'),
+				'electricity_bill_document' => $this->input->post('electricity_bill_document'),
+				'application_form_document' => $this->input->post('application_form_document'),
+				'passbook_url' => $this->input->post('passbook_url'),
+				'adhar_uploaded_url' => $this->input->post('adhar_uploaded_url'),
+				'pan_card_uploaded_url' => $this->input->post('pan_card_uploaded_url'),
+				// bank details
+				'bank_name' => $this->input->post('bank_name'),
+				'ifsc_code' => $this->input->post('ifsc_code'),
+				'passbook_no' => $this->input->post('passbook_no'),
+				'branch_address' => $this->input->post('branch_address'),
+				// guarantors details
+				'name' => $this->input->post('name'),
+				'relation' => $this->input->post('relation'),
+				'adhar_no' => $this->input->post('adhar_no'),
+				'pan_card_no' => $this->input->post('pan_card_no'),
+				'expense_details' => $this->input->post('expense_details'),
+
 			);
 
 			$insert_data = $this->borrowers_model->insert_client($client_data);

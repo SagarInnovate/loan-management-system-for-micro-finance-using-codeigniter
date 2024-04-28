@@ -22,18 +22,18 @@ class DocumentUpload extends CI_Controller {
     }
 
     public function uploadElectricityCard() {
-        $upload_path = './uploads/electricity/';
+        $upload_path = 'uploads/electricity/';
         $uploaded_url= $this->upload_document($upload_path);
         $this->return_response($uploaded_url);
     }
 
     public function uploadApplicationCard() {
-        $upload_path = './uploads/application/';
+        $upload_path = 'uploads/application/';
         $uploaded_url= $this->upload_document($upload_path);
         $this->return_response($uploaded_url);
     }
     public function uploadpassbookCard() {
-        $upload_path = './uploads/passbook/';
+        $upload_path = 'uploads/passbook/';
         $uploaded_url= $this->upload_document($upload_path);
         $this->return_response($uploaded_url);
     }
