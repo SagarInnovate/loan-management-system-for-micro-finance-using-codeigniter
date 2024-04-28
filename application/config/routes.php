@@ -1,6 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
+
+
+
+$route['documentupload/uploadaadharcard'] = 'documentupload/uploadAadharCard';
+$route['documentupload/uploadpancard'] = 'documentupload/uploadPanCard';
+$route['documentupload/uploadelectricitybill'] = 'documentupload/uploadElectricityBill';
+$route['documentupload/uploadapplicationform'] = 'documentupload/uploadApplicationForm';
+
+
 $route['default_controller'] = 'claims_controller';
 $route['404_override'] = 'claims_controller/error404';
 $route['translate_uri_dashes'] = FALSE;

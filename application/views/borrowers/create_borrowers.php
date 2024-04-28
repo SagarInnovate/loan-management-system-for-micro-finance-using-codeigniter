@@ -245,68 +245,89 @@
                                                             <div class="card-body">
 
 
+                                                            <div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Upload Aadhar Card</h5>
+                <div class="form-group">
+                    <label class="bmd-label-floating">Aadhar Number</label>
+                    <input type="text" class="form-control city" value="" name="aadhar_no" required>
+                  
+                </div>
+                <input type="file" class="form-control" id="aadharFile" name="aadhar_card" accept="application/pdf" required>
+                <div id="aadharSpinner" class="spinner" style="display: none;">Loading...</div>
 
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="card">
-                                                                            <div class="card-body">
-                                                                                <h5 class="card-title">Upload Aadhar
-                                                                                    Card</h5>
-                                                                                <div class="form-group">
-                                                                                    <label class="bmd-label-floating">Aadhar
-                                                                                        Number</label>
-                                                                                    <input type="text" class="form-control city" value="" name="aadhar_no" required>
-                                                                                </div>
-                                                                                <input type="file" class="form-control" name="aadhar_card" accept="application/pdf" required>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="card">
-                                                                            <div class="card-body">
-                                                                                <h5 class="card-title">Upload PAN Card
-                                                                                </h5>
-                                                                                <div class="form-group">
-                                                                                    <label class="bmd-label-floating">PAN
-                                                                                        Number</label>
-                                                                                    <input type="text" class="form-control city" value="" name="pan_card_no" required>
-                                                                                </div>
-                                                                                <input type="file" class="form-control" name="pan_card" accept="application/pdf" required>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="card">
-                                                                            <div class="card-body">
-                                                                                <h5 class="card-title">Upload
-                                                                                    Electricity Bill</h5>
-                                                                                <div class="form-group">
-                                                                                    <label class="bmd-label-floating">Aadhar
-                                                                                        Number</label>
-                                                                                    <input type="text" class="form-control city" value="" name="electricity_bill_no" required>
-                                                                                </div>
-                                                                                <input type="file" class="form-control" name="electricity_bill" accept="application/pdf,image/*" required>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="card">
-                                                                            <div class="card-body">
-                                                                                <h5 class="card-title">Application Form
-                                                                                </h5>
-                                                                                <div class="form-group">
-                                                                                    <label class="bmd-label-floating">Application
-                                                                                        Number</label>
-                                                                                    <input type="text" class="form-control city" value="" name="app_no" required>
-                                                                                </div>
-                                                                                <input type="file" class="form-control" name="application" accept="application/pdf,image/*" required>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+               <b> <div id="aadharUploadMsg" style="color:green"></div></b> <!-- Upload message container -->
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Upload PAN Card</h5>
+                <div class="form-group">
+                    <label class="bmd-label-floating">PAN Number</label>
+                    <input type="text" class="form-control city" value="" name="pan_card_no" required>
+                   
+                </div>
+                <input type="file" class="form-control" id="panFile" name="pan_card" accept="application/pdf" required>
+                <div id="panSpinner" class="spinner" style="display: none;">Loading...</div>
 
-                                                                </div>
+
+
+
+                <b><div id="panUploadMsg" style="color:green"></div></b> <!-- Upload message container -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Upload Electricity Bill</h5>
+                <div class="form-group">
+                    <label class="bmd-label-floating">Electricity Bill Number</label>
+                    <input type="text" class="form-control city" value="" name="electricity_bill_no" required>
+                
+                </div>
+                <input type="file" class="form-control" id="electricityBillFile" name="electricity_bill" accept="application/pdf,image/*" required>
+                <div id="electricitySpinner" class="spinner" style="display: none;">Loading...</div>
+              
+               
+                <b><div id="electricityUploadMsg" style="color:green"></div></b> <!-- Upload message container -->
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Upload Application Form</h5>
+                <div class="form-group">
+                    <label class="bmd-label-floating">Application Number</label>
+                    <input type="text" class="form-control city" value="" name="app_no" required>
+                      </div>
+                <input type="file" class="form-control" id="applicationFile" name="application" accept="application/pdf,image/*" required>
+            
+                <div id="applicationSpinner" class="spinner" style="display: none;">Loading...</div>
+ 
+                <b>  <div id="applicationUploadMsg" style="color:green"></div></b> <!-- Upload message container -->
+             
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="aadhar_url" name="aadhar_url" value="">
+<input type="hidden" id="pan_url" name="pan_url" value="">
+<input type="hidden" id="electricity_url" name="electricity_url" value="">
+<input type="hidden" id="application_url" name="application_url" value="">
+<input type="hidden" id="passbook_url" name="passbook_url" value="">
+<input type="hidden" id="gaadhar_url" name="gaadhar_url" value="">
+<input type="hidden" id="gpan_url" name="gpan_url" value="">
+
 
 
                                                             </div>
@@ -354,7 +375,7 @@
                                                             </div>
                                                             <div class="card-body">
                                                                 <div class="card-body">
-                                                                    <form id="bank-details-form" enctype="multipart/form-data">
+                                                               
                                                                         <div class="row">
 
                                                                             <div class="col-md-6">
@@ -393,7 +414,7 @@
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
                                                                                     <div class="form-group form-file-upload form-file-multiple ">
-                                                                                        <input type="file" accept="application/pdf,image/*" class="inputFileHidden" name="client_img" id="client_img" required>
+                                                                                        <input type="file" accept="application/pdf,image/*" class="inputFileHidden" name="passbook" id="passbookFile" required>
 
                                                                                         <div class="input-group mt-2">
                                                                                             <span class="input-group-btn">
@@ -401,15 +422,21 @@
                                                                                                     <i class="material-icons">attach_file</i>
                                                                                                 </button>
                                                                                             </span>
-                                                                                            <input type="text" class="form-control inputFileVisible" placeholder="Choose client picture..">
+                                                                                            <div>
+                                                                                            <input type="text" class="form-control inputFileVisible" placeholder="Choose Passbook picture..">
+                                                                                        <div id="passbookSpinner" class="spinner" style="display:none ;">Loading...</div>
+ 
+                                                                                    <b>  <div id="passbookUploadMsg" style="color:green"></div></b> <!-- Upload message container -->
+                                                                                    </div>
                                                                                         </div>
                                                                                     </div>
+                                                                                   
                                                                                 </div>
                                                                             </div>
                                                                         </div>
 
 
-                                                                    </form>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -422,7 +449,7 @@
                                                             </div>
                                                             <div class="card-body">
                                                                 <div class="card-body">
-                                                                    <form id="guarantor-details-form" enctype="multipart/form-data">
+                                                                   
                                                                         <div class="row">
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
@@ -449,7 +476,7 @@
                                                                             </div>
                                                                             <div class="col-md-6">
                                                                             <div class="form-group form-file-upload form-file-multiple ">
-                                                                                        <input type="file" accept="application/pdf,image/*" class="inputFileHidden" name="gaadharn_photo" id="gaadhar_photo" required>
+                                                                                        <input type="file" accept="application/pdf" class="inputFileHidden" name="gaadhar" id="gaadharFile" required>
 
                                                                                         <div class="input-group mt-2">
                                                                                             <span class="input-group-btn">
@@ -457,7 +484,15 @@
                                                                                                     <i class="material-icons">attach_file</i>
                                                                                                 </button>
                                                                                             </span>
-                                                                                            <input type="text" class="form-control inputFileVisible" placeholder="Choose PAN picture..">
+                                                                                            <div>
+                                                                                            <input type="text" class="form-control inputFileVisible" placeholder="Choose Aadhar picture..">
+                                                                                            <div id="gaadharSpinner" class="spinner" style="display:none ;">Loading...</div>
+ 
+                                                                                            <b>  <div id="gaadharUploadMsg" style="color:green"></div></b> <!-- Upload message container -->
+                                                                                            </div>
+                                                                                       
+                                                                                       
+                                                                                       
                                                                                         </div>
                                                                                     </div>
                                                                             </div>
@@ -473,7 +508,7 @@
                                                                             <div class="col-md-6">
                                                                           
                                                                                     <div class="form-group form-file-upload form-file-multiple ">
-                                                                                        <input type="file" accept="application/pdf,image/*" class="inputFileHidden" name="gpan_photo" id="gpan_photo" required>
+                                                                                        <input type="file" accept="application/pdf" class="inputFileHidden" name="gpan" id="gpanFile" required>
 
                                                                                         <div class="input-group mt-2">
                                                                                             <span class="input-group-btn">
@@ -481,7 +516,12 @@
                                                                                                     <i class="material-icons">attach_file</i>
                                                                                                 </button>
                                                                                             </span>
+                                                                                            <div>
                                                                                             <input type="text" class="form-control inputFileVisible" placeholder="Choose PAN picture..">
+                                                                                            <div id="gpanSpinner" class="spinner" style="display: none;">Loading...</div>
+ 
+ <b>  <div id="gpanUploadMsg" style="color:green"></div></b> <!-- Upload message container -->
+ </div>
                                                                                         </div>
                                                                                     </div>
                                                                             
@@ -496,7 +536,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </form>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -520,19 +560,83 @@
         <?php $this->load->view('templates/change_pass') ?>
         <?php $this->load->view('templates/footer') ?>
 </body>
-<script>
-    function sagar() {
-        var formdata = new FormData(document.getElementById("form-register"));
-        document.write(
-            "lname:", formdata.get('lname'),
-            "gname:", formdata.get('gname'),
-            "mname:", formdata.get('mname'),
-            "email:", formdata.get('email'),
-            "number1:", formdata.get('number1'),
-            "street:", formdata.get('street'),
-            "city:", formdata.get('city'),
-            "state:", formdata.get('state'),
-            "postal_code:", formdata.get('postal_code')
-        );
-    }
+<script type="text/javascript">
+   document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded');
+
+    document.getElementById('aadharFile').addEventListener('change', function() {
+        console.log('Aadhar file changed');
+        uploadDocument('aadhar', 'aadharFile', '#aadharUploadMsg');
+    });
+
+    document.getElementById('panFile').addEventListener('change', function() {
+        console.log('PAN file changed');
+        uploadDocument('pan', 'panFile', '#panUploadMsg');
+    });
+
+    document.getElementById('electricityBillFile').addEventListener('change', function() {
+        console.log('Electricity bill file changed');
+        uploadDocument('electricity', 'electricityBillFile',  '#electricityUploadMsg');
+    });
+
+    document.getElementById('applicationFile').addEventListener('change', function() {
+        console.log('Application file changed');
+        uploadDocument('application', 'applicationFile', '#applicationUploadMsg');
+    });
+
+    document.getElementById('passbookFile').addEventListener('change', function() {
+        console.log('Passbook file changed');
+        uploadDocument('passbook', 'passbookFile', '#passbookUploadMsg');
+    });
+
+    document.getElementById('gaadharFile').addEventListener('change', function() {
+        console.log('Gurantors Aadhar file changed');
+        uploadDocument('gaadhar', 'gaadharFile', '#gaadharUploadMsg');
+    });
+
+    document.getElementById('gpanFile').addEventListener('change', function() {
+        console.log('Garantors PAN file changed');
+        uploadDocument('gpan', 'gpanFile', '#gpanUploadMsg');
+    });
+
+
+    function uploadDocument(documentType, fileField, msgContainer) {
+    console.log('Uploading document: ' + documentType);
+    var fileInput = document.getElementById(fileField).files[0];
+    console.log(fileInput);
+    var formData = new FormData();
+    formData.append('file', fileInput);
+   
+    
+    var url = '<?php echo base_url("documentupload/upload") ?>' + documentType + 'card';
+    var spinnerId = documentType + 'Spinner';
+    var spinner = document.getElementById(spinnerId);
+    spinner.style.display = 'block';
+    
+    fetch(url, {
+        method: 'POST',
+        body: formData
+    })
+    .then(function(response) {
+        spinner.style.display = 'none';
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        return response.json(); // Assuming the server returns JSON response
+    })
+    .then(function(data) {
+        // Assuming the server returns the uploaded file URL in the response
+        document.querySelector(msgContainer).innerHTML = data.message;
+        // Set the uploaded file URL to the corresponding hidden input field
+        document.getElementById(documentType + '_url').value = data.file_url;
+    })
+    .catch(function(error) {
+        spinner.style.display = 'none';
+        console.error('There was a problem with the fetch operation:', error.message);
+    });
+}
+
+});
+
 </script>

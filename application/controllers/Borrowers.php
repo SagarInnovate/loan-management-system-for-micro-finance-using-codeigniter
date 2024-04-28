@@ -133,7 +133,11 @@ class Borrowers extends CI_Controller {
 				'postal_code' => $this->input->post('postal_code'),
 				'birthdate' => $this->input->post('birthdate'),
 				'gender' => $this->input->post('inlineRadioOptions'),
-				'info' => $this->input->post('info')
+				'info' => $this->input->post('info'),
+				'father_name' => $this->input->post('father_name'),
+				'mother_name' => $this->input->post('mother_name'),
+				'marital_status' => $this->input->post('marital_status'),
+
 			);
 
 			$insert_data = $this->borrowers_model->insert_client($client_data);

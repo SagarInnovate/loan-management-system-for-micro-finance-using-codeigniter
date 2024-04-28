@@ -190,9 +190,7 @@ class Borrowers_model extends CI_Model {
         $this->db->from('loan');
         $this->db->join('approved_loans', 'approved_loans.loan_no=loan.loan_no');
         $this->db->where('loan.account_no', $data);
-
-        $query = $this->db->get();
-
+        $query = $this->db->get(); 
         $result = $query->result_array();
         if(count($result) >0){
             return $result;
