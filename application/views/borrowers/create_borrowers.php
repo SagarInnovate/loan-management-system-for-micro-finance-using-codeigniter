@@ -136,7 +136,7 @@
                                                                 <div class="form-group">
                                                                     <label class="bmd-label-floating">Literacy
                                                                         Level</label>
-                                                                    <input type="text" class="form-control literacy"  name="literacy_level" value="this value" required>
+                                                                    <input type="text" class="form-control literacy"  name="literacy_level"  required>
                                                                 </div>
                                                             </div>
 

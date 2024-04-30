@@ -148,26 +148,26 @@
                         <h3 class="card-title font-weight-bold">Personal Information</h3>
                         <div class="row">
                             <div class="col-md-6">
-                                <p><strong>Mother Name:</strong> <span id="mother-name">Mother's Name</span></p>
+                                <p><strong>Mother Name:</strong> <span id="mother-name"><?php echo $profile['mother_name']; ?></span></p>
                             </div>
                             <div class="col-md-6">
-                                <p><strong>Father Name:</strong> <span id="father-name">Father's Name</span></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p><strong>Marital Status:</strong> <span id="marital-status">Married</span></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p><strong>Birthdate:</strong> <span id="birthdate">01/01/1990</span></p>
+                                <p><strong>Father Name:</strong> <span id="father-name"><?php echo $profile['father_name']; ?></span></p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <p><strong>Literacy Level:</strong> <span id="literacy-level">High School</span></p>
+                                <p><strong>Marital Status:</strong> <span id="marital-status"><?php echo $profile['marital_status']; ?></span></p>
                             </div>
                             <div class="col-md-6">
-                                <p><strong>Gender:</strong> <span id="gender">Male</span></p>
+                                <p><strong>Birthdate:</strong> <span id="birthdate"><?php echo $profile['birthdate']; ?></span></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Literacy Level:</strong> <span id="literacy-level"><?php echo $profile['literacy_level']; ?></span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Gender:</strong> <span id="gender"><?php echo $profile['gender']; ?></span></p>
                             </div>
                         </div>
                     </div>
@@ -178,10 +178,10 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title font-weight-bold">Documents</h3>
-                        <p><strong>Aadhar Number:</strong> <span id="aadhar-number">1234 5678 9012</span> <a href="#" class="view-document" data-toggle="modal" data-target="#viewFileModal" data-file="http://localhost/loanapp//assets/images/rfsc.png">View Document</a></p>
-                        <p><strong>PAN Number:</strong> <span id="pan-number">ABCDE1234F</span> <a href="#" class="view-document" data-toggle="modal" data-target="#viewFileModal" data-file="file2.pdf">View Document</a></p>
-                        <p><strong>Electricity Bill No:</strong> <span id="electricity-bill">1234567890</span> <a href="#" class="view-document" data-toggle="modal" data-target="#viewFileModal" data-file="file2.pdf">View Document</a></p>
-                        <p><strong>Application Form:</strong> <a href="#" class="view-document" data-toggle="modal" data-target="#viewFileModal" data-file="file2.pdf">View Document</a></p>
+                        <p><strong>Aadhar Number:</strong> <span id="aadhar-number"><?php echo $profile['aadhar_card_number']; ?></span> <a href="#" class="view-document" data-toggle="modal" data-target="#viewFileModal" data-file="<?php echo base_url().$profile['aadhar_card_document']; ?>">View Document</a></p>
+                        <p><strong>PAN Number:</strong> <span id="pan-number"><?php echo $profile['pan_card_number']; ?></span> <a href="#" class="view-document" data-toggle="modal" data-target="#viewFileModal" data-file="<?php echo base_url().$profile['pan_card_document']; ?>">View Document</a></p>
+                        <p><strong>Electricity Bill No:</strong> <span id="electricity-bill"><?php echo $profile['electricity_bill_number']; ?></span> <a href="#" class="view-document" data-toggle="modal" data-target="#viewFileModal" data-file="<?php echo base_url().$profile['electricity_bill_document']; ?>">View Document</a></p>
+                        <p><strong>Application Form:</strong><span id="application-number"><?php echo $profile['application_form_number']; ?></span>  <a href="#" class="view-document" data-toggle="modal" data-target="#viewFileModal" data-file="<?php echo base_url().$profile['application_form_document']; ?>">View Document</a></p>
                     </div>
                 </div>
             </div>
@@ -192,11 +192,11 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title font-weight-bold">Bank Details</h3>
-                        <p><strong>Bank Name:</strong> <span id="bank-name">ABC Bank</span></p>
-                        <p><strong>IFSC Code:</strong> <span id="ifsc-code">ABCD1234567</span></p>
-                        <p><strong>Account Number:</strong> <span id="account-number">1234567890</span></p>
-                        <p><strong>Address:</strong> <span id="bank-address">123 Main St, City, Country</span></p>
-                        <p><strong>Passbook:</strong> <a href="#" class="view-document" data-toggle="modal" data-target="#viewFileModal" data-file="file2.pdf">View Document</a></p>
+                        <p><strong>Bank Name:</strong> <span id="bank-name"><?php echo $profile['bank_name']; ?></span></p>
+                        <p><strong>IFSC Code:</strong> <span id="ifsc-code"><?php echo $profile['ifsc_code']; ?></span></p>
+                        <p><strong>Account Number:</strong> <span id="account-number"><?php echo $profile['passbook_no']; ?></span></p>
+                        <p><strong>Address:</strong> <span id="bank-address"><?php echo $profile['branch_address']; ?></span></p>
+                        <p><strong>Passbook:</strong> <a href="#" class="view-document" data-toggle="modal" data-target="#viewFileModal" data-file="<?php echo site_url().$profile['passbook_url']; ?>">View Document</a></p>
                     </div>
                 </div>
             </div>
@@ -205,11 +205,11 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title font-weight-bold">Guarantor Details</h3>
-                        <p><strong>Name of Guarantor:</strong> <span id="guarantor-name">John Doe</span></p>
-                        <p><strong>Relation with Borrower:</strong> <span id="relation">Friend</span></p>
-                        <p><strong>Guarantor's Aadhar:</strong> <span id="guarantor-aadhar">9876 5432 1098</span> <a href="#" class="view-document" data-toggle="modal" data-target="#viewFileModal" data-file="file2.pdf">View Document</a></p>
-                        <p><strong>Guarantor's PAN:</strong> <span id="guarantor-pan">FGHIJ5678K</span> <a href="#" class="view-document" data-toggle="modal" data-target="#viewFileModal" data-file="file2.pdf">View Document</a></p>
-                        <p><strong>Expense Details:</strong> <span id="expense">Monthly Expenses</span></p>
+                        <p><strong>Name of Guarantor:</strong> <span id="guarantor-name"><?php echo $profile['name']; ?></span></p>
+                        <p><strong>Relation with Borrower:</strong> <span id="relation"><?php echo $profile['relation']; ?></span></p>
+                        <p><strong>Guarantor's Aadhar:</strong> <span id="guarantor-aadhar"><?php echo $profile['adhar_no']; ?></span> <a href="#" class="view-document" data-toggle="modal" data-target="#viewFileModal" data-file="<?php echo site_url().$profile['adhar_uploaded_url']; ?>">View Document</a></p>
+                        <p><strong>Guarantor's PAN:</strong> <span id="guarantor-pan"><?php echo $profile['pan_card_no']; ?></span> <a href="#" class="view-document" data-toggle="modal" data-target="#viewFileModal" data-file="<?php echo site_url().$profile['pan_card_uploaded_url']; ?>">View Document</a></p>
+                        <p><strong>Expense Details:</strong> <span id="expense"><?php echo $profile['expense_details']; ?></span></p>
                     </div>
                 </div>
             </div>
@@ -987,15 +987,26 @@
         </div>
     </div>
     <script>
-        $(document).ready(function() {
-            // Click event for view file buttons
-            $(".view-file-btn").click(function() {
-                // Get the data-file attribute value
-                var file = $(this).data("file");
-                // Update the src attribute of the embed tag
-                $("#fileViewer").attr("src", file);
-            });
+     document.addEventListener("DOMContentLoaded", function() {
+    // Get all view file buttons
+    var viewFileButtons = document.querySelectorAll(".view-document");
+
+    // Add click event listener to each button
+    viewFileButtons.forEach(function(button) {
+        button.addEventListener("click", function(event) {
+            // Prevent default link behavior
+            event.preventDefault();
+
+            // Get the data-file attribute value
+            var file = this.getAttribute("data-file");
+
+            // Update the src attribute of the embed tag
+            var fileViewer = document.getElementById("fileViewer");
+            fileViewer.setAttribute("src", file);
         });
+    });
+});
+
     </script>
         <!-- end model -->
         <?php $this->load->view('templates/change_pass') ?>

@@ -198,6 +198,9 @@ class Borrowers_model extends CI_Model {
         $this->db->from('clients');
         $this->db->join('names', 'clients.account_no = names.account_no');
         $this->db->join('address', 'clients.account_no = address.account_no');
+        $this->db->join('bank_details', 'clients.account_no = bank_details.account_no');
+        $this->db->join('documents', 'clients.account_no = documents.account_no');
+        $this->db->join('guarantors_details', 'clients.account_no = guarantors_details.account_no');
         $this->db->where('clients.account_no', $data);
 
         $query = $this->db->get();
