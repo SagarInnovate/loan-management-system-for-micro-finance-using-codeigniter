@@ -23,8 +23,6 @@ class Borrowers_model extends CI_Model {
 				'mother_name' => $data['mother_name'],
 				'literacy_level' => $data['literacy_level'],
 				'marital_status' => $data['marital_status'],			
-				
-				
             );
         }else{
              $client_data = array(
@@ -111,33 +109,107 @@ class Borrowers_model extends CI_Model {
 
     public function update_profile($data){
 
-        if(empty($data['img'])){
-
-            $client_data = array(
-                'email' => $data['email'],
-                'number1' => $data['number1'],
-                'number2' => $data['number2'],
-                'birthdate' => $data['bday'],
-                'gender' => $data['gender'],
-                'added_info' => $data['info'],
-            );
-        }else{
-            $client_data = array(
-                'profile_img' => $data['img'],
-                'email' => $data['email'],
-                'number1' => $data['number1'],
-                'number2' => $data['number2'],
-                'birthdate' => $data['bday'],
-                'gender' => $data['gender'],
-                'added_info' => $data['info'],
-            );
-        }
-
+        // Client Data
+        $client_data = array(
+            'email' => $data['email'],
+            'number1' => $data['number1'],
+            'number2' => $data['number2'],
+            'birthdate' => $data['birthdate'],
+            'gender' => $data['gender'],
+            'added_info' => $data['info'],
+            'father_name' => $data['father_name'],
+            'mother_name' => $data['mother_name'],
+            'literacy_level' => $data['literacy_level'],
+            'marital_status' => $data['marital_status'],			
+        );
+    
+        // Client Name
+        $client_name = array(
+            'firstname' => $data['gname'],
+            'middlename' => $data['mname'],
+            'lastname' => $data['lname'],
+        );
+    
+        // Client Address
+        $client_address = array(
+            'street' => $data['street'],
+            'city' => $data['city'],
+            'state' => $data['state'],
+            'postal_code' => $data['postal_code'],
+        );
+    
+        // Bank Details
+        $bank_details = array(
+            'bank_name' => $data['bank_name'],
+            'ifsc_code' => $data['ifsc_code'],
+            'passbook_no' => $data['passbook_no'],
+            'branch_address' => $data['branch_address'],
+            'passbook_url' => $data['passbook_url'],
+        );
+    
+        // Documents
+        $documents = array(
+            'aadhar_card_number' => $data['aadhar_card_number'],
+            'electricity_bill_number' => $data['electricity_bill_number'],
+            'pan_card_number' => $data['pan_card_number'],
+            'application_form_number' => $data['application_form_number'],
+            'aadhar_card_document' => $data['aadhar_card_document'],
+            'pan_card_document' => $data['pan_card_document'],
+            'electricity_bill_document' => $data['electricity_bill_document'],
+            'application_form_document' => $data['application_form_document'],
+        );
+    
+        // Guarantors Details
+        $guarantors_details = array(
+            'name' => $data['name'],
+            'relation' => $data['relation'],
+            'adhar_no' => $data['adhar_no'],
+            'pan_card_no' => $data['pan_card_no'],
+            'expense_details' => $data['expense_details'], 
+            'adhar_uploaded_url' => $data['adhar_uploaded_url'],
+            'pan_card_uploaded_url' => $data['pan_card_uploaded_url'],
+        );
+    
+        // Begin transaction
+        $this->db->trans_start();
+    
+        // Update Client Data
         $this->db->where('account_no', $data['account_no']);
         $this->db->update('clients', $client_data);
-
-        return $this->db->affected_rows();
+    
+        // Update Client Name
+        $this->db->where('account_no', $data['account_no']);
+        $this->db->update('names', $client_name);
+    
+        // Update Client Address
+        $this->db->where('account_no', $data['account_no']);
+        $this->db->update('address', $client_address);
+    
+        // Update Bank Details
+        $this->db->where('account_no', $data['account_no']);
+        $this->db->update('bank_details', $bank_details);
+    
+        // Update Documents
+        $this->db->where('account_no', $data['account_no']);
+        $this->db->update('documents', $documents);
+    
+        // Update Guarantors Details
+        $this->db->where('account_no', $data['account_no']);
+        $this->db->update('guarantors_details', $guarantors_details);
+    
+        // Commit transaction
+        $this->db->trans_complete();
+    
+        // Check if transaction was successful
+        if ($this->db->trans_status() === FALSE) {
+            // Transaction failed
+            return false;
+        } else {
+            // Transaction successful
+            return true;
+        }
     }
+    
 
     public function update_name($data){
 

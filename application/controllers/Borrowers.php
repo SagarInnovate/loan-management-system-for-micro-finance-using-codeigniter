@@ -1,14 +1,17 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-class Borrowers extends CI_Controller {
-	
-	public function check_auth(){
-        if(!$this->session->userdata('logged_in')){
-            redirect(base_url());
-        }
-    }
+defined('BASEPATH') or exit('No direct script access allowed');
+class Borrowers extends CI_Controller
+{
 
-	public function create_borrowers(){
+	public function check_auth()
+	{
+		if (!$this->session->userdata('logged_in')) {
+			redirect(base_url());
+		}
+	}
+
+	public function create_borrowers()
+	{
 
 		$this->check_auth('create_borrowers');
 
@@ -17,22 +20,22 @@ class Borrowers extends CI_Controller {
 		//get last account_no of client
 		$account_no = $this->borrowers_model->get_account_id();
 
-		if(is_null($account_no)){
+		if (is_null($account_no)) {
 
 			$clients['acc_no'] = 1000;
 
-			$this->load->view('templates/header',$title);
+			$this->load->view('templates/header', $title);
 			$this->load->view('borrowers/create_borrowers', $clients);
-
-		}else{
+		} else {
 			$clients['acc_no'] = array('account_no' => $account_no['account_no']);
-			
-			$this->load->view('templates/header',$title);
+
+			$this->load->view('templates/header', $title);
 			$this->load->view('borrowers/create_borrowers', $clients);
 		}
 	}
 
-	public function new_borrowers(){
+	public function new_borrowers()
+	{
 
 		$this->check_auth('create_borrowers');
 
@@ -40,34 +43,36 @@ class Borrowers extends CI_Controller {
 
 		$clients['new_clients'] = $this->borrowers_model->get_new_clients();
 
-		$this->load->view('templates/header',$title);
+		$this->load->view('templates/header', $title);
 		$this->load->view('borrowers/new_borrowers', $clients);
 	}
-	
-	public function active_borrowers(){
+
+	public function active_borrowers()
+	{
 
 		$title['title'] = "RFSC-Active Borrowers";
 
 		$this->check_auth('active_borrowers');
-		
+
 		$clients['active'] = $this->borrowers_model->get_active_clients();
 
-		$this->load->view('templates/header',$title);
+		$this->load->view('templates/header', $title);
 		$this->load->view('borrowers/active_borrowers', $clients);
 	}
 
-	public function borrowers_profile($account_no){
+	public function borrowers_profile($account_no)
+	{
 
 		$this->check_auth('borrowers_profile');
 
 		$result = $this->borrowers_model->get_profile($account_no);
 
-		if(!is_null($result)){
+		if (!is_null($result)) {
 
 			$business = $this->borrowers_model->get_profile_bname($account_no);
 
-			if(!is_null($business)){
-				$client['business'] = array('bname' => $business['business_name'],'baddress' => $business['business_address']);
+			if (!is_null($business)) {
+				$client['business'] = array('bname' => $business['business_name'], 'baddress' => $business['business_address']);
 			}
 
 
@@ -85,7 +90,7 @@ class Borrowers extends CI_Controller {
 				'info' => $result['added_info'],
 				'status' => $result['status'],
 				// 'purok' => $result['purok_no'],
-				 'street' => $result['street'],
+				'street' => $result['street'],
 				'city' => $result['city'],
 				'state' => $result['state'],
 				'country' => $result['country'],
@@ -98,51 +103,52 @@ class Borrowers extends CI_Controller {
 				'mother_name' => $result['mother_name'],
 				'literacy_level' => $result['literacy_level'],
 				'marital_status' => $result['marital_status'],
-            'relation' => $result['relation'],
-            'adhar_no' => $result['adhar_no'],
-            'pan_card_no' => $result['pan_card_no'],
-            'expense_details' => $result['expense_details'], 
-            'adhar_uploaded_url' => $result['adhar_uploaded_url'],
-            'pan_card_uploaded_url' => $result['pan_card_uploaded_url'],
-			
-            'aadhar_card_number' => $result['aadhar_card_number'],
-            'electricity_bill_number' => $result['electricity_bill_number'],
-            'pan_card_number' => $result['pan_card_number'],
-            'application_form_number' => $result['application_form_number'],
-            'aadhar_card_document' => $result['aadhar_card_document'],
-            'pan_card_document' => $result['pan_card_document'],
-            'electricity_bill_document' => $result['electricity_bill_document'],
-            'application_form_document' => $result['application_form_document'],
-			
-            'bank_name' => $result['bank_name'],
-            'ifsc_code' => $result['ifsc_code'],
-            'passbook_no' => $result['passbook_no'],
-            'branch_address' => $result['branch_address'],
-            'passbook_url' => $result['passbook_url']
-				
-           
+				'relation' => $result['relation'],
+				'adhar_no' => $result['adhar_no'],
+				'pan_card_no' => $result['pan_card_no'],
+				'expense_details' => $result['expense_details'],
+				'adhar_uploaded_url' => $result['adhar_uploaded_url'],
+				'pan_card_uploaded_url' => $result['pan_card_uploaded_url'],
+
+				'aadhar_card_number' => $result['aadhar_card_number'],
+				'electricity_bill_number' => $result['electricity_bill_number'],
+				'pan_card_number' => $result['pan_card_number'],
+				'application_form_number' => $result['application_form_number'],
+				'aadhar_card_document' => $result['aadhar_card_document'],
+				'pan_card_document' => $result['pan_card_document'],
+				'electricity_bill_document' => $result['electricity_bill_document'],
+				'application_form_document' => $result['application_form_document'],
+
+				'bank_name' => $result['bank_name'],
+				'ifsc_code' => $result['ifsc_code'],
+				'passbook_no' => $result['passbook_no'],
+				'branch_address' => $result['branch_address'],
+				'passbook_url' => $result['passbook_url']
+
+
 			);
 
-			$title['title'] = "Profile-".$result['firstname'].' '.$result['middlename'].' '.$result['lastname'];
+			$title['title'] = "Profile-" . $result['firstname'] . ' ' . $result['middlename'] . ' ' . $result['lastname'];
 
-			$this->load->view('templates/header',$title);
+			$this->load->view('templates/header', $title);
 			$this->load->view('borrowers/profile', $client);
-
-		}else{
+		} else {
 			redirect(base_url('error404'));
-		}	
+		}
 	}
 
 	public function register_borrowers()
 	{
 		$validator = array('success' => false, 'messages' => array());
-	
+ // Begin transaction
+ $this->db->trans_start();
+
 		// Load upload library and configuration
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = 'jpg|png|jpeg|gif';
 		$config['encrypt_name'] = TRUE;
 		$this->load->library('upload', $config);
-	
+
 		// Check if client_img file was uploaded successfully
 		if ($this->upload->do_upload('client_img')) {
 			// Retrieve upload data after successful upload
@@ -153,7 +159,7 @@ class Borrowers extends CI_Controller {
 			$uploaded_url = ""; // Set image URL as blank
 			$validator['messages'][] = $this->upload->display_errors();
 		}
-	
+
 		// Proceed to save client data
 		$client_data = array(
 			// personal info
@@ -200,118 +206,92 @@ class Borrowers extends CI_Controller {
 			'pan_card_no' => $this->input->post('pan_card_no'),
 			'expense_details' => $this->input->post('expense_details'),
 		);
-	
+
 		$insert_data = $this->borrowers_model->insert_client($client_data);
-	
+
 		if ($insert_data) {
+			// Commit transaction
+			$this->db->trans_complete();
 			$validator['success'] = true;
 			$validator['messages'][] = 'Successfully added!';
 		} else {
+			// Rollback transaction
+			$this->db->trans_rollback();
 			$validator['messages'][] = 'Something went wrong. Please contact the administrator';
 		}
 	
 		echo json_encode($validator);
 	}
-	
 
 	public function update_client()
 	{
-		$validator = array('success' => false, 'messages' => array());
+		 $validator = array('success' => false, 'messages' => array());
+		 
+			// Proceed to save client data
+		$client_data = array(
+			// personal info
+			'account_no' => $this->input->post('account_no'),
+			'mname' => $this->input->post('mname'),
+			'gname' => $this->input->post('gname'),
+			'lname' => $this->input->post('lname'),
+			'email' => $this->input->post('email'),
+			'number1' => $this->input->post('number1'),
+			'number2' => $this->input->post('number2'),
+			'street' => $this->input->post('street'),
+			'city' => $this->input->post('city'),
+			'state' => $this->input->post('state'),
+			'postal_code' => $this->input->post('postal_code'),
+			'birthdate' => $this->input->post('birthdate'),
+			'gender' => $this->input->post('inlineRadioOptions'),
+			'info' => $this->input->post('info'),
+			'father_name' => $this->input->post('father_name'),
+			'mother_name' => $this->input->post('mother_name'),
+			'literacy_level' => $this->input->post('literacy_level'),
+			'marital_status' => $this->input->post('marital_status'),
+			// documents info
+			'aadhar_card_number' => $this->input->post('aadhar_card_number'),
+			'electricity_bill_number' => $this->input->post('electricity_bill_number'),
+			'pan_card_number' => $this->input->post('pan_card_number'),
+			'application_form_number' => $this->input->post('application_form_number'),
+			'aadhar_card_document' => $this->input->post('aadhar_card_document'),
+			'pan_card_document' => $this->input->post('pan_card_document'),
+			'electricity_bill_document' => $this->input->post('electricity_bill_document'),
+			'application_form_document' => $this->input->post('application_form_document'),
+			'passbook_url' => $this->input->post('passbook_url'),
+			'adhar_uploaded_url' => $this->input->post('adhar_uploaded_url'),
+			'pan_card_uploaded_url' => $this->input->post('pan_card_uploaded_url'),
+			// bank details
+			'bank_name' => $this->input->post('bank_name'),
+			'ifsc_code' => $this->input->post('ifsc_code'),
+			'passbook_no' => $this->input->post('passbook_no'),
+			'branch_address' => $this->input->post('branch_address'),
+			// guarantors details
+			'name' => $this->input->post('name'),
+			'relation' => $this->input->post('relation'),
+			'adhar_no' => $this->input->post('adhar_no'),
+			'pan_card_no' => $this->input->post('pan_card_no'),
+			'expense_details' => $this->input->post('expense_details'),
+		);
 
-		$config['upload_path'] = './uploads/';
-		$config['allowed_types'] = 'jpg|png|jpeg|gif';
-		$config['encrypt_name'] = TRUE;
+		$updated_data = $this->borrowers_model->update_profile($client_data);
 
-		$this->load->library('upload',$config);
-
-		if(!$this->upload->do_upload('img')){
-
-			$client_data = array(
-				'account_no' => $this->input->post('account_no'),
-				'img' => "",
-				'email' => $this->input->post('email'),
-				'number1' => $this->input->post('num1'),
-				'number2' => $this->input->post('num2'),
-				'bday' => $this->input->post('bday'),
-				'gender' => $this->input->post('gender'),
-				'info' => $this->input->post('info')
-			);
-
-			$name = array(
-				'account_no' => $this->input->post('account_no'),
-				'mname' => $this->input->post('mname'),
-				'fname' => $this->input->post('fname'),
-				'lname' => $this->input->post('lname')
-			);
-
-			$update_profile = $this->borrowers_model->update_profile($client_data);
-			
-
-			if($update_profile){
-				$update_name = $this->borrowers_model->update_name($name);
-
-				$validator['success'] = true;
-				$validator['messages'] = 'Update successfully!';
-			}else{
-				$validator['success'] = false;
-				$validator['messages'] = "Something went wrong!";
-			}
-		
-		}else{
-			$data = $this->upload->data();
-			//Resize and Compress Image
-			$config['image_library'] = 'gd2';
-			$config['source_image'] = './uploads/'.$data['file_name'];
-			$config['create_thumb'] = FALSE;
-			$config['maintain_ratio'] = FALSE;
-			$config['quality'] = '60%';
-			$config['width'] = 600;
-			$config['height'] = 400;
-			$config['new_image'] = './uploads/'.$data['file_name'];
-
-			$this->load->library('image_lib', $config);
-			$this->image_lib->resize();
-			
-
-			$client_data = array(
-				'account_no' => $this->input->post('account_no'),
-				'img' => $data['file_name'],
-				'email' => $this->input->post('email'),
-				'number1' => $this->input->post('num1'),
-				'number2' => $this->input->post('num2'),
-				'bday' => $this->input->post('bday'),
-				'gender' => $this->input->post('gender'),
-				'info' => $this->input->post('info')
-			);
-
-			$name = array(
-				'account_no' => $this->input->post('account_no'),
-				'mname' => $this->input->post('mname'),
-				'fname' => $this->input->post('fname'),
-				'lname' => $this->input->post('lname')
-			);
-
-			$update_profile = $this->borrowers_model->update_profile($client_data);
-
-			if($update_profile){
-				$update_name = $this->borrowers_model->update_name($name);
-			
-				$validator['success'] = true;
-				$validator['messages'] = 'Update successfully!';
-			}
+		if ($updated_data) {
+			$validator['success'] = true;
+			$validator['messages'][] = 'Update successfully!';
+		} else {
+			$validator['messages'][] = 'Something went wrong. Please contact the administrator';
 		}
 
-			echo json_encode($validator);
+		echo json_encode($validator);
 	}
 
-	public function delete_clients(){
+	public function delete_clients()
+	{
 		$result = $this->borrowers_model->delete_clients($this->input->post('id'));
-		if($result){
+		if ($result) {
 			echo "All client records has been deleted!";
-		}else{
+		} else {
 			echo "False";
 		}
-		
 	}
-
 }

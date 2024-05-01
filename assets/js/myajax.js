@@ -59,12 +59,6 @@ $(document).ready(function() {
 	$(".client-save").click(function() {
 		// event.preventDefault();
 		var formdata = new FormData(document.getElementById("form-register"));
-
-        // You don't need to manually collect form field values if you're using FormData
-
-        // Check if all required fields are filled
-		
-		
 		
         if (formdata.get('lname') && formdata.get('gname') && formdata.get('mname') &&
             formdata.get('email') && formdata.get('number1') && formdata.get('street') &&
