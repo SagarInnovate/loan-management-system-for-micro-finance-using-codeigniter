@@ -72,7 +72,13 @@ class Borrowers extends CI_Controller
 			$business = $this->borrowers_model->get_profile_bname($account_no);
 
 			if (!is_null($business)) {
-				$client['business'] = array('bname' => $business['business_name'], 'baddress' => $business['business_address']);
+				$client['business'] = array('bname' => $business['business_name'], 
+				'baddress' => $business['business_address'],
+				'occupation' => $business['occupation'],
+				'employment_status' => $business['employment_status'],
+				'monthly_income' => $business['monthly_income']
+			
+			);
 			}
 
 

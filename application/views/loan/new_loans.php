@@ -18,13 +18,19 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        
+                    <form method="post" action="<?php echo site_url('loan/approve_loan'); ?>">
+        <label for="loan_id">Loan ID:</label>
+        <input type="text" id="loan_id" name="loan_id" required>
+        <button type="submit">Verify Loan</button>
+    </form>
+                 
                         <?php $this->load->view('navigation/loan_navbar');?>
 
                         <div class="tab-content tab-space">
                             <div class="tab-pane active">
                                  <div class="card">
-                        <div class="card-header card-header-primary">
+                                 <h1>Verify Loan</h1>
+          <div class="card-header card-header-primary">
                             <h4 class="card-title mt-0">Loan Applicant Table</h4>
                             <p class="card-category"> Below is the list of all new loan applicants</p>
                         </div>

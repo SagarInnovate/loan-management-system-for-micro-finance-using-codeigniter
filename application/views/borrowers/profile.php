@@ -74,11 +74,23 @@
 
                             <div class="card">
                                 <div class="card-header border-bottom font-weight-bold text-primary">
-                                    Address
+                                   Business Info
                                 </div>
 
                                 <div class="card-body">
-                                    <h6 class="card-title font-weight-bold">Business Name</h6>
+                                    <h6 class="card-title font-weight-bold">Occupation</h6>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p class="card-description font-weight-bold">
+                                                <?php if (!empty($business['occupation'])) { ?>
+                                                    <?php echo $business['occupation']; ?>
+                                                <?php } else { ?>
+                                                    Not Found
+                                                <?php } ?>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <h6 class="card-title font-weight-bold">Company/Business/College Name</h6>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <p class="card-description font-weight-bold">
@@ -86,6 +98,31 @@
                                                     <?php echo $business['bname']; ?>
                                                 <?php } else { ?>
                                                     No business name
+                                                <?php } ?>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <h6 class="card-title font-weight-bold">Employment Status</h6>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p class="card-description font-weight-bold">
+                                                <?php if (!empty($business['employment_status'])) { ?>
+                                                    <?php echo $business['employment_status']; ?>
+                                                <?php } else { ?>
+                                                    Not Found
+                                                <?php } ?>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <h6 class="card-title font-weight-bold">Monthly Income</h6>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p class="card-description font-weight-bold">
+                                                <?php if (!empty($business['monthly_income'])) { ?>
+                                                    <?php echo $business['monthly_income']; ?>
+                                                <?php } else { ?>
+                                                    Not Found
                                                 <?php } ?>
                                             </p>
                                         </div>
@@ -102,15 +139,7 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <h6 class="card-title font-weight-bold">Borrowers Address</h6>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <p class="card-description font-weight-bold">
-                                                <?php echo $profile['street'] . ', ' . $profile['city'] . ', ' . $profile['state'] . ', ' . $profile['country'] . ' ' . $profile['postal_code']; ?>
-
-                                            </p>
-                                        </div>
-                                    </div>
+                                   
                                 </div>
                             </div>
 
@@ -159,17 +188,14 @@
                                                                 </p>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <p><strong>Birthdate:</strong> <span id="birthdate"><?php echo $profile['birthdate']; ?></span>
+                                                                <p><strong>Literacy Level:</strong> <span id="literacy-level"><?php echo $profile['literacy_level']; ?></span>
                                                                 </p>
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-md-6">
-                                                                <p><strong>Literacy Level:</strong> <span id="literacy-level"><?php echo $profile['literacy_level']; ?></span>
-                                                                </p>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <p><strong>Gender:</strong> <span id="gender"><?php echo $profile['gender']; ?></span>
+                                                           
+                                                            <div class="col-md-12">
+                                                                <p><strong>Address:</strong> <span id="address"><?php echo $profile['street'] . ', ' . $profile['city'] . ', ' . $profile['state'] . ', ' . $profile['country'] . ' ' . $profile['postal_code']; ?></span>
                                                                 </p>
                                                             </div>
                                                         </div>

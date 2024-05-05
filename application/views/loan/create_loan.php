@@ -28,7 +28,7 @@
                                             <p class="card-category">Complete the loan application form</p>
                                         </div>
                                         <div class="card-body form-body mt-2">
-                                            <form id="loan-form" method="POST">
+                                            <form id="loan-form" action="<?php echo base_url()."insert-loan" ?>" method="POST">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="row">
@@ -50,11 +50,11 @@
                                                                 <div class="input-group no-border">
                                                                     <?php if (isset($account_no)) { ?>
                                                                         <input type="text" value="<?php echo $account_no ?>"
-                                                                            class="form-control accnt_no"
+                                                                            class="form-control accnt_no" name="account_no"
                                                                             placeholder="Account no" autofocus required>
                                                                     <?php } else { ?>
                                                                         <input type="text" value=""
-                                                                            class="form-control accnt_no"
+                                                                            class="form-control accnt_no" name="account_no"
                                                                             placeholder="Account no" autofocus required>
                                                                     <?php } ?>
                                                                     <button type="submit"
@@ -66,8 +66,8 @@
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
-                                                                    <select id="inputState1"
-                                                                        class="form-control collector">
+                                                                    <select id="inputState1" name="collector"
+                                                                        class="form-control collector" required>
                                                                         <option disabled selected>Choose collector...
                                                                         </option>
                                                                         <?php foreach ($collector as $key => $collect) {
@@ -84,8 +84,8 @@
 
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
-                                                                    <select id="inputState"
-                                                                        class="form-control verifier">
+                                                                    <select id="inputState" name="verifier"
+                                                                        class="form-control verifier" required>
                                                                         <option disabled selected>Verified by...
                                                                         </option>
                                                                         <?php
@@ -118,7 +118,7 @@
                                                                         class="bmd-label-floating pl-3">Loan
                                                                         Amount</label>
                                                                     <input type="number" min="0.01" step="0.01"
-                                                                        max="100000"
+                                                                        
                                                                         class="form-control text-right amount font-weight-bold"
                                                                         id="amount" name="amount" required>
                                                                 </div>
@@ -138,8 +138,8 @@
                                                                         class="bmd-label-floating">Loan Type</label>
                                                                     <select class="form-control" id="loanType"
                                                                         name="loanType" required>
-                                                                        <option value="weekly">Weekly</option>
-                                                                        <option value="monthly">Monthly</option>
+                                                                        <option value="Weekly">Weekly</option>
+                                                                        <option value="Monthly">Monthly</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -296,109 +296,21 @@
 
                                                         <div class="row bs">
 
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-8">
                                                                 <div class="form-group">
-                                                                    <label class="bmd-label-floating">street</label>
+                                                                    <label class="bmd-label-floating">Address</label>
                                                                     <input type="text" class="form-control street1"
-                                                                        name="street" required>
+                                                                        name="address" required>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4">
-                                                                <div class="form-group">
-                                                                    <label class="bmd-label-floating">City</label>
-                                                                    <input type="text" class="form-control city"
-                                                                        name="city1" required>
-                                                                </div>
-                                                            </div>
+                                                           
                                                         </div>
-                                                        <div class="row bs">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="bmd-label-floating">State</label>
-                                                                    <input type="text" class="form-control province1"
-                                                                        name="state" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <div class="form-group">
-                                                                    <label class="bmd-label-floating">Postal
-                                                                        Code</label>
-                                                                    <input type="number" class="form-control postal1"
-                                                                        name="postal" required>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row c-add" style="display: none">
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <!-- <label class="bmd-label-floating">Current Address</label> -->
-                                                                    <input type="text" class="form-control address"
-                                                                        placeholder="Current Address" id="c_address"
-                                                                        name="address" readonly>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-4">
-                                                                <div class="row ml-1">
-                                                                    <i class="fas fa-toggle-off mr-2" rel="tooltip"
-                                                                        title="Select current address"
-                                                                        onclick="business_add(this)" id="c-add"></i>
-                                                                    Same as the current address
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                     
+                                                     
                                                     </div>
                                                 </div>
-                                                <!-- <div class="mt-3 mb-2">
-                                                    <h6 class="card-title">Co-Maker Info</h6>
-                                                </div> -->
-                                                <!-- <div class="co-maker-section">
-
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="bmd-label-floating">Fullname</label>
-                                                                <input type="text" id="c-name1"
-                                                                    class="form-control comaker-name"
-                                                                    name="comaker-name" required>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <button type="button"
-                                                                class="btn btn-social btn-just-icon btn-round btn-primary"
-                                                                id="add_co-maker" rel="tooltip"
-                                                                title="Add another co-maker">
-                                                                <i class="fa fa-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="bmd-label-floating">Residence Certificate
-                                                                    No</label>
-                                                                <input type="text" class="form-control cedula"
-                                                                    name="cedula" id="cedula1" required>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="bmd-label-floating">Date issued</label>
-                                                                <input type="date" class="form-control date_issued"
-                                                                    name="date_issued" id="c-date1" required>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="bmd-label-floating">Where issued</label>
-                                                                <input type="text" class="form-control where_issued"
-                                                                    name="where_issued" id="c-place1" required>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
+                                              
+                                                   
                                                 <div class="mt-2">
                                                     <button type="submit"
                                                         class="btn btn-primary btn-round pull-right create-loan"><i
@@ -472,16 +384,17 @@
 
             // Function to populate duration options based on loan type
             function populateDurationOptions() {
-                durationSelect.innerHTML = '';
-                var loanType = loanTypeSelect.value;
-                var durationOptions = loanType === 'weekly' ? ['50 weeks', '100 weeks'] : ['12 months', '24 months'];
-                durationOptions.forEach(function (option) {
-                    var optionElement = document.createElement('option');
-                    optionElement.textContent = option;
-                    durationSelect.appendChild(optionElement);
-                });
-            }
-
+    durationSelect.innerHTML = '';
+    var loanType = loanTypeSelect.value;
+    var durationOptions = loanType === 'Weekly' ? ['50 weeks', '100 weeks'] : ['12 months', '24 months'];
+    var durationValues = loanType === 'Weekly' ? [50, 100] : [12, 24]; // Numeric values array
+    durationOptions.forEach(function (option, index) {
+        var optionElement = document.createElement('option');
+        optionElement.textContent = option;
+        optionElement.value = durationValues[index]; // Assign the numeric value to the 'value' attribute
+        durationSelect.appendChild(optionElement);
+    });
+}
             // Populate duration options when the loan type changes
             loanTypeSelect.addEventListener('change', function () {
                 populateDurationOptions();

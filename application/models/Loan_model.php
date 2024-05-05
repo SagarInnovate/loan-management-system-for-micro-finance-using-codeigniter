@@ -28,7 +28,7 @@ class Loan_model extends CI_Model {
         $this->db->join('names', 'clients.account_no = names.account_no');
         $this->db->join('loan', 'loan.account_no = clients.account_no');
         $this->db->join('approved_loans', 'loan.loan_no = approved_loans.loan_no');
-        $this->db->join('debtor_business', 'loan.loan_no = debtor_business.loan_no');
+        $this->db->join('business_details', 'loan.loan_no = business_details.loan_no');
         $this->db->where('approved_loans.status', 'Paid');
         $result = $this->db->get();
 
@@ -74,45 +74,37 @@ class Loan_model extends CI_Model {
         $loan = array(
             'loan_no' => $data['loan_no'],
             'account_no' => $data['account_no'],
-            'area' => $data['area'],
-            'loan_amount' => $data['loan_amount'],
+            'loan_amount' => $data['amount'],
             'collector' => $data['collector'],
-            'verified' => $data['verifier']
+            'verified' => $data['verifier'],
+           
+            'date_loan' => $data['date'],
 
+            'loan_type' => $data['loanType'],
+			'interest' => $data['interestRate'],
+			'duration' => $data['duration'],
+			
         );
 
         $business = array(
-            'business_name' => $data['b_name'],
-            'business_address' => $data['b_address'],
             'loan_no' => $data['loan_no'],
-            'account_no' => $data['account_no']
+            'account_no' => $data['account_no'],
+            'occupation' => $data['occupation'],
+			'business_name' => $data['employer'],
+			'employment_status' => $data['employmentStatus'],
+			'monthly_income' => $data['monthlyIncome'],
+            'business_address' => $data['address']
+
         );
 
         $this->db->insert('loan', $loan);
-        $this->db->insert('debtor_business', $business);
+        $this->db->insert('business_details', $business);
 
         return $this->db->affected_rows();
             
     }
 
-    public function insert_co_maker($data){
-
-        for($i=0; $i<count($data['co_maker_name']); $i++){
-
-            $co_data = array(
-                'name' => $data['co_maker_name'][$i],
-                'cedula_no' => $data['cedula'][$i],
-                'date_issued' => $data['date_issued'][$i],
-                'address_issued' => $data['adrs_issued'][$i],
-                'loan_no' => $data['loan_no'],
-                'account_no' => $data['account_no']
-            );
-
-            $this->db->insert('co_maker', $co_data);
-        }
-
-        return $this->db->affected_rows();
-    }
+  
 
     public function update_borrowers($data){
         $this->db->set('status', 'Verified');
@@ -142,7 +134,7 @@ class Loan_model extends CI_Model {
         $this->db->join('address', 'clients.account_no = address.account_no');
         $this->db->join('names', 'clients.account_no = names.account_no');
         $this->db->join('loan', 'loan.account_no = clients.account_no');
-        $this->db->join('debtor_business', 'loan.loan_no = debtor_business.loan_no');
+        $this->db->join('business_details', 'loan.loan_no = business_details.loan_no');
         $this->db->where('loan.status', 'Rejected');
         $result = $this->db->get();
 
@@ -155,7 +147,7 @@ class Loan_model extends CI_Model {
         $this->db->join('address', 'clients.account_no = address.account_no');
         $this->db->join('names', 'clients.account_no = names.account_no');
         $this->db->join('loan', 'loan.account_no = clients.account_no');
-        $this->db->join('debtor_business', 'loan.loan_no = debtor_business.loan_no');
+        $this->db->join('business_details', 'loan.loan_no = business_details.loan_no');
         $this->db->where('loan.status', 'Waiting for approval');
         $this->db->or_where('loan.status', 'Re-applied loan');
         $result = $this->db->get();
@@ -163,42 +155,87 @@ class Loan_model extends CI_Model {
         return $result->result_array();
     }
 
-    public function approve_loan($data,$data1){
-        $approved_date = date('Y-m-d');
+    // public function approve_loan($data,$data1){
+    //     $approved_date = date('Y-m-d');
         
-        $due_date = date('Y-m-d', strtotime("+60 days"));
+    //     $due_date = date('Y-m-d', strtotime("+60 days"));
 
-        $amount = intval($data1);
-        $int = $amount * 0.1;
-        $total_int = $int*2;
-        $amnt_int = $amount + $total_int;
-        $daily_payment = $amnt_int/60;
+    //     $amount = intval($data1);
+    //     $int = $amount * 0.1;
+    //     $total_int = $int*2;
+    //     $amnt_int = $amount + $total_int;
+    //     $daily_payment = $amnt_int/60;
 
+    //     $this->db->set('status', "Approved");
+    //     $this->db->set('approved', $this->session->userdata('username'));
+    //     $this->db->where('loan_no', $data);
+    //     $this->db->update('loan');
+
+
+    //     $loan_data = array(
+    //         'loan_no' => $data,
+    //         'date_approved' => $approved_date,
+    //         'daily_payment' => $daily_payment
+    //     );
+
+    //     $this->db->insert('approved_loans', $loan_data);
+    //     return $this->db->affected_rows();
+    // }
+
+    // public function get_loan_details($data){
+    //     $sql = "SELECT * FROM `loan` JOIN clients ON loan.account_no=clients.account_no JOIN names ON clients.account_no=names.account_no JOIN business_details ON business_details.loan_no=loan.loan_no WHERE loan.loan_no= '$data' ";
+    //     $query = $this->db->query($sql);
+
+    //     $result = $query->result_array();
+    //     if(count($result) >0){
+    //         return $result[0];
+    //     }else{
+    //         return null;
+    //     }
+    // }
+
+
+    public function check_loan_exists($loan_id) {
+        // Perform a database query to check if the loan exists
+        $this->db->where('loan_no', $loan_id);
+        $query = $this->db->get('loan');
+    
+        // Check if any rows are returned
+        if ($query->num_rows() > 0) {
+            return true; // Loan exists
+        } else {
+            return false; // Loan does not exist
+        }
+    }
+    
+    public function get_loan_details($loan_id) {
+        // Perform a database query to retrieve loan details
+        $this->db->where('loan_no', $loan_id);
+        $query = $this->db->get('loan');
+    
+        // Check if any rows are returned
+        if ($query->num_rows() > 0) {
+            // Return the loan details as an associative array
+            return $query->row_array();
+        } else {
+            // Loan does not exist, return empty array
+            return array();
+        }
+    }
+    
+    public function approve_loan($approved_loan_data,$loan_no) {
+        // Insert the approved loan data into the approved_loans table
         $this->db->set('status', "Approved");
         $this->db->set('approved', $this->session->userdata('username'));
-        $this->db->where('loan_no', $data);
+        $this->db->where('loan_no', $loan_no);
         $this->db->update('loan');
-
-
-        $loan_data = array(
-            'loan_no' => $data,
-            'date_approved' => $approved_date,
-            'daily_payment' => $daily_payment
-        );
-
-        $this->db->insert('approved_loans', $loan_data);
-        return $this->db->affected_rows();
-    }
-
-    public function get_loan_details($data){
-        $sql = "SELECT * FROM `loan` JOIN clients ON loan.account_no=clients.account_no JOIN names ON clients.account_no=names.account_no JOIN debtor_business ON debtor_business.loan_no=loan.loan_no WHERE loan.loan_no= '$data' ";
-        $query = $this->db->query($sql);
-
-        $result = $query->result_array();
-        if(count($result) >0){
-            return $result[0];
-        }else{
-            return null;
+        $insert_result = $this->db->insert('approved_loans', $approved_loan_data);
+    
+        // Check if the insert was successful
+        if ($insert_result) {
+            return true; // Loan approval successful
+        } else {
+            return false; // Loan approval failed
         }
     }
 

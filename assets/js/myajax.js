@@ -687,172 +687,83 @@ $(document).on('click','.search_account',function(){
 	return false;
 });
 
-// =========== Insert Loan Details ================
-$(document).ready(function() {
-	$(".create-loan").click(function(e) {
-		e.preventDefault();
 
-	var loan_no = $('.loan_no').val();
-	var area = $('.area').val();
-	var account_no = $('.accnt_no').val();
-	var loan_amount = $('.amount').val();
-	var collector = $('.collector').val();
-	var full_name = $('.full_name').val();
-	var email = $('.email').val();
-	var verifier = $('.verifier').val();
+// $(document).ready(function() {
+//     $(".create-loan").click(function(e) {
+//         e.preventDefault();
 
-	var email_toggle = $('#email-toggle').hasClass('email');
-	var sim1_toggle = $('#sim1-toggle').hasClass('sim1');
-	var sim2_toggle = $('#sim2-toggle').hasClass('sim2');
+//         var loan_no = $('.loan_no').val();
+//         var account_no = $('.accnt_no').val();
+//         var loan_amount = $('.amount').val();
+//         var collector = $('.collector').val();
+//         var full_name = $('.full_name').val();
+//         var email = $('.email').val();
+//         var verifier = $('.verifier').val();
+//         var interestRate = $('#interestRate').val();
+//         var loanType = $('#loanType').val();
+//         var duration = $('#duration').val();
+//         var occupation = $('#occupation').val();
+//         var employer = $('#employer').val();
+//         var employmentStatus = $('#employmentStatus').val();
+//         var monthlyIncome = $('#monthlyIncome').val();
+//         var address = $('.street1').val();
+       
 
-	var email_notif = '';
-	var sim1_notif = '';
-	var sim2_notif = '';
+//         var email_toggle = $('#email-toggle').hasClass('email');
+//         var sim1_toggle = $('#sim1-toggle').hasClass('sim1');
+//         var sim2_toggle = $('#sim2-toggle').hasClass('sim2');
 
-	if(email_toggle){
-		var email_notif = 'yes';
-	}
-	if(sim1_toggle){
-		var sim1_notif = 'yes';
-		var sim1 = $('.sim1').val();
-	}
-	if(sim2_toggle){
-		var sim2_notif = 'yes';
-		var sim2 = $('.sim2').val();
-	}
+//         var email_notif = email_toggle ? 'yes' : '';
+//         var sim1_notif = sim1_toggle ? 'yes' : '';
+//         var sim2_notif = sim2_toggle ? 'yes' : '';
 
-	var b_name = $('.b_name').val();
-	var b_address = $('#c_address').val();
+//         var sim1 = sim1_toggle ? $('.sim1').val() : '';
+//         var sim2 = sim2_toggle ? $('.sim2').val() : '';
 
-	if(!b_address){
-		var b_address = $('.street1').val()+','+$('.city').val()+','+$('.state1').val()+'.'+$('postal1').val();;
-	}
-	
-	if(!b_address){
-		var b_address = $('.street').val()+','+$('.city').val()+','+$('.state')+','+$('.postal').val(); 
-	}
-	var co_mkr = $('.comaker-name').val();
-	var cdula = $('.cedula').val();
-	var dt = $('.date_issued').val();
-	var wdt = $('.where_issued').val();
+//         $.ajax({
+//             type: "POST",
+//             url: BASE_URL + "insert-loan",
+//             dataType: "json",
+//             data: {
+//                 loan_no: loan_no,
+//                 account_no: account_no,
+//                 loan_amount: loan_amount,
+//                 collector: collector,
+//                 verifier: verifier,
+//                 full_name: full_name,
+//                 email: email,
+//                 interestRate: interestRate,
+//                 loanType: loanType,
+//                 duration: duration,
+//                 occupation: occupation,
+//                 employer: employer,
+//                 employmentStatus: employmentStatus,
+//                 monthlyIncome: monthlyIncome,
+//                 address: address,
+//                 email_notif: email_notif,
+//                 sim1_notif: sim1_notif,
+//                 sim2_notif: sim2_notif,
+//                 sim1: sim1,
+//                 sim2: sim2,
+//             },
+//             cache: false,
 
-	var co_maker_name = [];
-	var cedula = [];
-	var date_issued = [];
-	var adrs_issued = [];
-
-	if(co_mkr != ''){
-		$('.comaker-name').each(function(){
-			co_maker_name.push($(this).val());
-		});
-	}
-	if(cdula != ''){
-		$('.cedula').each(function(){
-			cedula.push($(this).val());
-		});
-	}
-	if(dt != ''){
-		$('.date_issued').each(function(){
-			date_issued.push($(this).val());
-		});
-	}
-	if(wdt != ''){
-		$('.where_issued').each(function(){
-			adrs_issued.push($(this).val());
-		});
-	}
-
-	if(collector!=null && verifier!=null && account_no.trim() && loan_amount.trim() && co_mkr && cdula && dt && wdt && b_address.trim() && b_name.trim()){
-		$.ajax({
-			type: "POST",
-			url: BASE_URL+"insert-loan",
-			dataType: "json",
-			data: {
-				loan_no : loan_no,
-				area : area,
-				account_no : account_no,
-				loan_amount : loan_amount,
-				collector : collector,
-				verifier: verifier,
-				full_name : full_name,
-				email : email,
-				email_notif : email_notif,
-				sim1_notif : sim1_notif,
-				sim2_notif : sim2_notif,
-				sim1 : sim1,
-				sim2 : sim2,
-				b_name : b_name,
-				b_address : b_address, 
-				co_maker_name : co_maker_name,
-				cedula : cedula,
-				date_issued : date_issued,
-				adrs_issued : adrs_issued
-			},
-			cache: false,
-
-			success: function(response){
-				if(response.success == true){
-					
-					$("#loading-screen").hide();
-
-					if(response.email == false){
-						showNotification(
-							response.messages,
-							"check_circle",
-							"success"
-						);
-						showNotification( 
-							'Email notification failed! Email is not valid!',
-							"info",
-							"warning"
-						);
-					} else{
-						showNotification( 
-							response.messages,
-							"check_circle",
-							"success"
-						);
-						// ==== SMS API is in trial only ===
-						// showNotification(
-						// 	data.sim1,
-						// 	"info",
-						// 	"success"
-						// );
-						// showNotification(
-						// 	data.sim2,
-						// 	"info",
-						// 	"success"
-						// );
-					}
-
-					$("#loan-form")[0].reset();
-
-					setTimeout(function() {
-						window.location.reload(1);
-					}, 3000);
-
-				}else{
-
-					$("#loading-screen").hide();
-		
-					showNotification(
-						response.messages,
-						"info",
-						"danger"
-					);
-				}
-			}
-		});
-	}else{
-		showNotification(
-			'Please fill the form completely',
-			"info",
-			"warning"
-		);
-	}
-
-	
-	return false;
-});
-});
+//             success: function(response) {
+//                 $("#loading-screen").hide();
+//                 if (response.success == true) {
+//                     showNotification(response.messages, "check_circle", "success");
+//                     if (response.email == false) {
+//                         showNotification('Email notification failed! Email is not valid!', "info", "warning");
+//                     }
+//                     $("#loan-form")[0].reset();
+//                     setTimeout(function() {
+//                         window.location.reload(1);
+//                     }, 3000);
+//                 } else {
+//                     showNotification(response.messages, "info", "danger");
+//                 }
+//             }
+//         });
+//     });
+// });
 

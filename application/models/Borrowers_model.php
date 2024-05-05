@@ -287,9 +287,9 @@ class Borrowers_model extends CI_Model {
 
     public function get_profile_bname($data){
 
-        $this->db->where('debtor_business.account_no', $data);
+        $this->db->where('business_details.account_no', $data);
 
-        $query = $this->db->get('debtor_business');
+        $query = $this->db->get('business_details');
 
         $result = $query->result_array();
         if(count($result) >0){

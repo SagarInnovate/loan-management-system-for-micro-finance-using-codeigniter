@@ -155,53 +155,76 @@ class Loan extends CI_Controller {
 
 	}
 
-    public function insert_loan(){
+	public function insert_loan() {
+		// Initialize response array
+		$response = array('success' => false, 'messages' => array(), 'email' => false);
+	
+		// Retrieve loan data from POST
 
-		$validator = array('success' => false, 'messages' => array() , 'email' => false, 'sim_1' => false, 'sim_2' => false, 'sim1' => array(), 'sim2' => array());
+		$loan_data = array(
+			'loan_no' => $this->input->post('loan'),
+			'full_name' => $this->input->post('full_name'),
+			'account_no' => $this->input->post('account_no'),
+			'collector' => $this->input->post('collector'),
+			'verifier' => $this->input->post('verifier'),
+			'date' => $this->input->post('date'),
+			'email' => $this->input->post('email'),
+			'amount' => $this->input->post('amount'),
+			'interestRate' => $this->input->post('interestRate'),
+			'loanType' => $this->input->post('loanType'),
+			'duration' => $this->input->post('duration'),
+			'occupation' => $this->input->post('occupation'),
+			'employer' => $this->input->post('employer'),
+			'employmentStatus' => $this->input->post('employmentStatus'),
+			'monthlyIncome' => $this->input->post('monthlyIncome'),
+			'address'=>$this->input->post('address')
+		);
+
+		print_r($loan_data);
+	
 		
-		$loan_data = $this->input->post();
-		$comaker_data = $this->input->post();
-
-		$full_name = $this->input->post('full_name');
-		$email = $this->input->post('email');
-		$amount = $this->input->post('loan_amount');
-		$business = $this->input->post('b_name');
+	
+		// Retrieve notification preferences
 		$email_notif = $this->input->post('email_notif');
-		$sim1_notif = $this->input->post('sim1_notif');
-		$sim2_notif = $this->input->post('sim2_notif');
-		$sim1 = $this->input->post('sim1');
-		$sim2 = $this->input->post('sim2');
-		$account_no = $this->input->post('account_no');
-		
-		
-
-		$insert_data = $this->loan_model->insert_loan($loan_data);
-
-		if($insert_data){
-
-			$this->loan_model->insert_co_maker($comaker_data);
-
-			if($email_notif == 'yes'){
-				if(filter_var($email, FILTER_VALIDATE_EMAIL)){
-					
-					$subject = "RFSC Loan Application Verification";
-					$template = "templates/email_template";
-
-					$sendmail = $this->send_email($full_name,$email,$amount,$business,$subject,$template);
-
-					$validator['messages'] = 'Loan successfully registered. Email notification sent!';
-					$validator['email'] = true;
-					$validator['success'] = true;
-				}else{
-					$validator['email'] = false;
-					$validator['success'] = true;
-					$validator['messages'] = 'Loan successfully registered!';
-				}
-			}else{
-				$validator['success'] = true;
-				$validator['messages'] = 'Loan successfully registered!';
-			}
-
+		$loan_data['email_notif'] = $email_notif;
+	
+		// Insert loan data into the database
+		$inserted = $this->loan_model->insert_loan($loan_data);
+	
+		if ($inserted) {
+			// Check if email notification is requested and email is valid
+			// if ($email_notif == 'yes' && filter_var($loan_data['email'], FILTER_VALIDATE_EMAIL)) {
+			// 	// Send email notification
+			// 	$subject = "RFSC Loan Application Verification";
+			// 	$template = "templates/email_template";
+			// 	$sendmail = $this->send_email($loan_data['full_name'], $loan_data['email'], $loan_data['amount'], $loan_data['business'], $subject, $template);
+	
+			// 	// Update response
+			// 	if ($sendmail) {
+			// 		$response['email'] = true;
+			// 		$response['messages'] = 'Loan successfully registered. Email notification sent!';
+			// 	} else {
+			// 		$response['messages'] = 'Failed to send email notification. Loan successfully registered!';
+			// 	}
+			// } else {
+				// Update response
+				$response['messages'] = 'Loan successfully registered!';
+			// }
+	
+			// Update borrower's data
+			$this->loan_model->update_borrowers($loan_data['account_no']);
+	
+			// Update success flag
+			$response['success'] = true;
+		} else {
+			// Update response
+			$response['messages'] = 'Failed to register loan!';
+		}
+	
+		// Return the response as JSON
+		echo json_encode($response);
+	}
+	
 			// ============= API is in trial ======================
 			// $msg = "Hi, This is to notify you that your loan application is being process. From RFS Corporation.";
 			// $apicode = "TR-RFSCO761275_H4IDW";
@@ -241,13 +264,7 @@ class Loan extends CI_Controller {
 			// 	$validator['sim_2'] = true;
 			// }
 
-			$this->loan_model->update_borrowers($account_no);
-		}
-			
-
-		echo json_encode($validator);
-	}
-
+	
 
 	public function account_query(){
 
@@ -285,80 +302,88 @@ class Loan extends CI_Controller {
 			curl_close ($ch);
 	}
 
-	public function approve_loan(){
-
-		$data = array('success' => false, 'email' => false, 'sim1' => array(), 'sim2' => array());
-
-		$id = $this->input->post('id');
-		$amount = $this->input->post('amount');
-
-		$query = $this->loan_model->get_loan_details($id);
-
-		if($query){
-
-			$result = $this->loan_model->approve_loan($id, $amount);
-
-			if($result){
-
-				$name = $query['firstname'].' '.$query['middlename'].' '.$query['lastname'];
-				$email = $query['email'];
-				$amount = $query['loan_amount'];
-				$b_name = $query['business_name'];
-				$subject = "RFSC Loan Application Approval";
-				$template = "templates/email_approval";
-
-				$num = $query['number1'];
-				$num1 = $query['number2'];
-				$msg = "Hi there, This is to notify you that your loan application is approved. From RFS Corporation.";
-				$apicode = "TR-RFSCO761275_H4IDW";
-
-				if(filter_var($email, FILTER_VALIDATE_EMAIL)){
-
-					$sendmail = $this->send_email($name,$email,$amount,$b_name,$subject,$template);	
-
-					$data['email'] = true;
+	
+	
+		public function approve_loan() {
+			// Check if loan application exists for the provided loan ID
+			print_r($this->input->post());
+			$loan_id = $this->input->post('loan_id');
+			$loan_exists = $this->loan_model->check_loan_exists($loan_id);
+			
+			if ($loan_exists) {
+				// Retrieve loan details from loan application
+				$loan_details = $this->loan_model->get_loan_details($loan_id);
+				
+				// Calculate values for approved loan
+				$approved_loan_data = $this->calculate_approved_loan(
+					$loan_details['loan_amount'],
+					$loan_details['interest'],
+					$loan_details['loan_type'],
+					$loan_details['duration'],
+					$loan_details['loan_no']
+				);
+				
+				// Store approved loan data in the database
+				$approval_result = $this->loan_model->approve_loan($approved_loan_data,$loan_id);
+				
+				if ($approval_result) {
+					// Loan approved successfully
+					// You can redirect to a success page or return a success message
+				} else {
+					// Error occurred while approving loan
+					// You can redirect to an error page or return an error message
 				}
-
-				// ============= API is in trial ======================
-				// $send_sms = $this->itexmo($num, $msg, $apicode);
-				// $send_sms1 = $this->itexmo($num1, $msg, $apicode);
-
-
-				// if($send_sms == ''){
-
-				// 	$data['sim1'] = "Something went wrong. Please contact developer";
-
-				// }elseif ($send_sms == 0) {
-
-				// 	$data['sim1'] = "SMS sent successfully!";
-
-				// }else{
-				// 	$data['sim1'] = "SMS not sent.";
-				// }
-
-				// if($send_sms1 == ''){
-
-				// 	$data['sim2'] = "Something went wrong. Please contact developer";
-
-				// }elseif ($send_sms1 == 0) {
-
-				// 	$data['sim2'] = "SMS sent successfully!";
-					
-				// }else{
-				// 	$data['sim2'] = "SMS not sent.";
-				// }
+			} else {
+				// Loan application not found
+				// You can redirect to an error page or return an error message
 			}
-
-			$data['success'] =  true;
-
-		}else{
-
-			$data['success'] =  true;
-
 		}
+	
+		private function calculate_approved_loan($amount, $interest_rate, $loan_type, $duration,$loan_no) {
+			// Initialize variables for important loan information
+			$total_amount = $amount;
+			$total_payable_amount = $amount + ($amount * ($interest_rate / 100));
+	
+			// Calculate loan term based on loan type
+			if ($loan_type === 'weekly') {
+				$loan_term = $duration * 7; // Convert weeks to days
+			} else {
+				$loan_term = $duration * 30; // Convert months to days
+			}
+	
+			// Calculate start date and end date
+			$start_date = date('Y-m-d'); // Current date
+			$end_date = date('Y-m-d', strtotime("+$loan_term days"));
+	
+			// Calculate monthly or weekly EMI
+			if ($loan_type === 'weekly') {
+				$weeks = ceil($duration / 7); // Calculate total weeks
+				$weekly_emi = $total_payable_amount / $weeks; // Calculate weekly EMI
+			} else {
+				$monthly_emi = $total_payable_amount / $duration; // Calculate monthly EMI
+			}
+	
+			// Prepare data for approved loan table
+			$approved_loan_data = array(
+				'loan_no' => $loan_no,
+				'number_of_emis' => $duration,
+				'remaining_emis' => $duration,
+				'date_approved' => date('Y-m-d'),
+				'loan_started' => $start_date,
+				'end_date' => $end_date,
+				'emi_amount' => ($loan_type === 'weekly' ? $weekly_emi : $monthly_emi),
+				'due_date' => $end_date,
+				'status' => 'Active'
+			);
+	
+			// Return calculated values for approved loan table
+			return $approved_loan_data;
+		}
+	
+	
 
-		echo json_encode($data);
-	}
+
+
 
 	public function reject_loan(){
 		$result = $this->loan_model->reject_loan($this->input->post('id'),$this->input->post('reason'));

@@ -64,6 +64,7 @@
                                             </td>
                                         </tr>
 
+                                        
                                         <!-- Modal to view client data -->
                                         <div class="modal fade" id="clients-<?php echo $newC['account_no'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">

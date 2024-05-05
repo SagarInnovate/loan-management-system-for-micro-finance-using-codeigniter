@@ -9,59 +9,46 @@ class Payments extends CI_Controller {
         }
     }
 
-	public function loan_details($loan_no=""){
-
+	public function loan_details($loan_no = "") {
 		$this->check_auth('borrowers_profile');
-
-		$loan = $loan_no;
-
-		if($loan != ''){
-
-			$result['loan'] = $this->payments_model->get_loan_details($loan);
-			
-
-			if(!is_null($result)){
-				$result['pny'] = $this->payments_model->payment_check($loan);
-
-				$amount = intval($result['loan']['daily_payment']);
-		        $int = $amount * 0.01;
-		        $amnt_int = $amount + $int;
-
-		        if(!is_null($result['pny'])){
-		        	$d = 0;
-		        	if(!empty($result['pny'][0]['date'])){
-		        		$d = $result['pny'][0]['date'];
-		        	}
-		        	$now = time();
-	                $date = strtotime($d);
-	                $datediff = $now - $date;
-
-	                $payment_no = round($datediff / (60 * 60 * 24));
-
-			        $result['penalty'] = $amnt_int*$payment_no;
-		        }
-		        
-
+	
+		if (!empty($loan_no)) {
+			// Fetch loan details
+			$loan_details = $this->payments_model->get_loan_details($loan_no);
+	
+			if (!empty($loan_details)) {
+				// Fetch payment information
+				$payment_info = $this->payments_model->payment_check($loan_no);
+	
+				// Fetch paid EMIs for the loan
+				$paid_emis = $this->payments_model->get_paid_emis($loan_no);
+	
+				// Fetch unpaid EMIs for the loan
+				$unpaid_emis = $this->payments_model->get_unpaid_emis($loan_no);
+	
+				// Pass data to the view
+				$data['loan'] = $loan_details;
+				$data['pny'] = $payment_info;
+				$data['paid_emis'] = $paid_emis;
+				$data['unpaid_emis'] = $unpaid_emis;
+	
 				$title['title'] = "RFSC-Loan Details";
-
-				$result['first_mnth'] = $this->payments_model->get_payment_first_month($result['loan']['loan_no']);
-				$result['second_mnth'] = $this->payments_model->get_payment_second_month($result['loan']['loan_no']);
-				$this->load->view('templates/header',$title);
-				$this->load->view('payments/loan_payments', $result);
-				
-
-			}else{
+	
+				$this->load->view('templates/header', $title);
+				$this->load->view('payments/loan_payments', $data);
+			} else {
+				// Redirect to 404 page if loan details not found
 				redirect(base_url('error404'));
 			}
-
-		}else{
+		} else {
+			// Load view to search for loans if no loan number provided
 			$title['title'] = "RFSC-Search Loans";
-
-			$this->load->view('templates/header',$title);
+	
+			$this->load->view('templates/header', $title);
 			$this->load->view('payments/loan_search');
-			
 		}
 	}
+	
 
 	public function search_loan(){
 		$validator = array('success' => false, 'loan' => array());
