@@ -80,14 +80,8 @@ class Payments extends CI_Controller {
 		$validator = array('success' => false, 'message' => array());
 
 		$data = $this->input->post();
-
-		$check['pny'] = $this->payments_model->payment_check($data['loan_no']);
-
-		if(empty($check['pny'][0]['payment_no'])){
-
-			$payment_no = 1;
-
-			$result = $this->payments_model->insert_payment($data, $payment_no);
+		
+		    $result = $this->payments_model->insert_payment($data);
 
 			if($result){
 				$validator['success'] = true;
@@ -97,24 +91,7 @@ class Payments extends CI_Controller {
 				$validator['success'] = false;
 				$validator['message'] = "Payment error!";
 			}
-		}else{
-
-			$now = time();
-			$date = strtotime($check['pny'][0]['date']);
-			$datediff = $now - $date;
-
-			$payment_no = round($datediff / (60 * 60 * 24)) + $check['pny'][0]['payment_no'];
-
-			$result = $this->payments_model->insert_payment($data, $payment_no);
-			if($result){
-				$validator['success'] = true;
-				$validator['message'] = "Payment successfull!";
-
-			}else{
-				$validator['success'] = false;
-				$validator['message'] = "Payment error!";
-			}
-		}
+		
 
 			
 

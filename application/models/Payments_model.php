@@ -33,30 +33,30 @@ class Payments_model extends CI_Model {
         }
     }
 
-    public function insert_payment($data, $payment_no){
+    public function insert_payment($data){
         $loan_no = $data['loan_no'];
 
-        if(isset($data['total_pay'])){
-
             $payment = array(
                 'loan_no' => $loan_no,
                 'date' => date('Y-m-d'),
-                'amount' => $data['total_pay'],
-                'payment_no' => $payment_no,
-                'notes' => 'Penalty added'
+                'amount' => $data['emi_amount'],
+                'emi_no'=>$data['emi_no'],
             );
             $this->db->insert('payment_transactions', $payment);
+          
+            $this->db->select('remaining_emis');
+            $this->db->where('loan_no', $loan_no);
+            $query = $this->db->get('approved_loans');
+            $result = $query->row();
+            $remaining_emis = $result->remaining_emis;
+    
+            // Update due_date and remaining_emis in approved_loan table
+            $this->db->where('loan_no', $loan_no);
+            $this->db->set('due_date', $data["next_due"]); // Assuming due_date should be incremented by 1 day
+            $this->db->set('remaining_emis', intval($remaining_emis) - 1);
+            $this->db->update('approved_loans');
 
-        }else{
-            $payment = array(
-                'loan_no' => $loan_no,
-                'date' => date('Y-m-d'),
-                'amount' => $data['daily_payment'],
-                'payment_no' => $payment_no,
-                'notes' => 'Daily payment'
-            );
-            $this->db->insert('payment_transactions', $payment);
-        }
+        
 
         return $this->db->affected_rows();
         

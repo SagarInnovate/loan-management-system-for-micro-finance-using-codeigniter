@@ -154,7 +154,7 @@ $remaining=intval($loan['remaining_emis'])*intval($loan['emi_amount']);
 $recived=$total_amount-$remaining;
 
 
-            ?>
+?>
                                                     <div class="row p-0">
                                                     <div class="col-md-4 p-0">
                                                         <div class="form-group input-group-prepend">
@@ -187,7 +187,7 @@ $recived=$total_amount-$remaining;
                                             <div class="card-body">
                                            
                                                 <div class="table-responsive">
-                                                <?php if(!$paid_emis['err']){ ?>
+                                                <?php if(!isset($paid_emis['err'])){ ?>
                                                     <table class="table table-sm">
                                                         <thead class="text-primary">
                                                             <th>EMI No</th>
@@ -227,22 +227,51 @@ $recived=$total_amount-$remaining;
                                                             <th>Action</th>
                                                         </thead>
                                                         <tbody>
-                                                        <?php foreach ($unpaid_emis as $emi): ?>
+                                                        <?php for($i = 0; $i < count($unpaid_emis)- 1; $i++){ 
+                                                            
+                                                            $unpaid_emis[$i]["next_due"]=$unpaid_emis[$i+1]["due_date"];
+                                                            
+                                                            ?>
                                                                 <tr>
-                                                                    <td><?php echo $emi["start"]; ?></td>
-                                                                    <td><?php echo $emi["due_date"]; ?></td>
-                                                                    <td><?php echo $emi["emi_amount"]; ?></td>
+                                                                
+                                                               
+                                                                    <td><?php echo $unpaid_emis[$i]["start"]; ?></td>
+                                                                    <td><?php echo $unpaid_emis[$i]["due_date"]; ?></td>
+                                                                    <td><?php echo $unpaid_emis[$i]["emi_amount"]; ?></td>
                                                                    
                                                        <td>
-                <?php if ($emi['is_due_near']): ?>
-                    <button class="btn btn-outline-success btn-round pull-right btn-sm"  data-emi_no="<?php echo $emi["start"]; ?>" data-target="#payment-modal" data-toggle="modal"><i class="material-icons">monetization_on</i> Pay EMI</button>                 
+                <?php if ($unpaid_emis[$i]['is_due_near']): ?>
+                    <button class="btn btn-outline-success btn-round pull-right btn-sm" data-next_due="<?php echo $unpaid_emis[$i]["next_due"]; ?>" onclick="openPaymentModal(this)" data-amount="<?php echo $unpaid_emis[$i]["emi_amount"]; ?>"  data-emi_no="<?php echo $unpaid_emis[$i]["start"]; ?>" ><i class="material-icons">monetization_on</i> Pay EMI</button>                 
                                            
                 <?php else: ?>
                     <!-- Button disabled if due date is not near -->
                     <button class="btn btn-outline-success btn-round pull-right btn-sm" disabled><i class="material-icons">lock</i> Pay EMI</button>                 
                   
                 <?php endif; ?>
-            </td></tr> <?php endforeach; ?>
+            </td></tr> <?php 
+        } 
+        $lastIndex = count($unpaid_emis)-1;
+        $unpaid_emis[$lastIndex]['next_due'] = $unpaid_emis[$lastIndex]['due_date'];
+
+        ?>
+  <tr>
+                                                                
+                                                              
+                                                                <td><?php echo $unpaid_emis[$lastIndex]["start"]; ?></td>
+                                                                <td><?php echo $unpaid_emis[$lastIndex]["due_date"]; ?></td>
+                                                                <td><?php echo $unpaid_emis[$lastIndex]["emi_amount"]; ?></td>
+                                                               
+                                                   <td>
+            <?php if ($unpaid_emis[$i]['is_due_near']): ?>
+                <button class="btn btn-outline-success btn-round pull-right btn-sm" data-next_due="<?php echo $unpaid_emis[$i]["next_due"]; ?>" onclick="openPaymentModal(this)" data-amount="<?php echo $unpaid_emis[$i]["emi_amount"]; ?>"  data-emi_no="<?php echo $unpaid_emis[$i]["start"]; ?>" ><i class="material-icons">monetization_on</i> Pay EMI</button>                 
+                                       
+            <?php else: ?>
+                <!-- Button disabled if due date is not near -->
+                <button class="btn btn-outline-success btn-round pull-right btn-sm" disabled><i class="material-icons">lock</i> Pay EMI</button>                 
+              
+            <?php endif; ?>
+        </td></tr>
+
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -267,7 +296,7 @@ $recived=$total_amount-$remaining;
                                                                 <div class="ml-auto mr-auto">
                                                                     
                                                                 </div>    
-                                                            </div>
+                                                            </div><form action="<?php echo base_url()."pay-loan"  ?>" method="post">
 
                                                             <div class="form-group mt-4">
                                                                 <label class="bmd-label-floating">Date Now</label>
@@ -275,26 +304,26 @@ $recived=$total_amount-$remaining;
                                                             </div>
                                                             
                                                             <div class="form-group input-group-prepend">
-                                                                <span class="input-group-text">
-                                                                            ₱
-                                                                </span>
+                                                               
                                                                 <label class="bmd-label-floating">EMI Amount
-                                                                <input type="number" class="form-control pl-3 daily_payment" name="amount" value="<?php echo $loan['daily_payment'];?>" readonly required>
+                                                                <input type="text" class="form-control pl-3 emi_amount" id="amountInput" name="emi_amount"  readonly required>
                                                             </div>
                                                             
                                                             
 
                                                             
                                                     
-                                                            <input type="hidden" class="form-control loan_no" value="<?php echo $loan['loan_no'];?>">
-                                                            <input type="hidden" class="form-control emi_no" value="<?php echo $loan['emi_no'];?>">
+                                                            <input type="hidden" class="form-control loan_no" name="loan_no" value="<?php echo $loan['loan_no'];?>">
+                                                            <input type="hidden" class="form-control emi_no" name="emi_no" id="emiNoInput">
+                                                            <input type="hidden" class="form-control next_due" name="next_due" id="nextDue">
                                                         </div>
-                                                        <button type="button" class="btn btn-primary btn-round btn-sm ml-3 pay">Pay</button>
-                                                        <button type="button" class="btn btn-primary btn-round btn-sm ml-3 pay-penalty pnalty" style="display: none">Pay</button>
-                                                        
+                                                       
+                                                       
                                                     </div>
 
                                                     <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary btn-round btn-sm ml-3 paqy">Pay</button>
+                                                    </form>
                                                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
                                                     </div>
                                                     </form>
@@ -309,3 +338,21 @@ $recived=$total_amount-$remaining;
                 <?php $this->load->view('templates/change_pass') ?>
 	<?php $this->load->view('templates/footer') ?>
 </body>
+<script>
+
+function openPaymentModal(button) {
+    // Fetch EMI number and EMI amount from button's data attributes
+    var emiNumber = button.getAttribute('data-emi_no');
+    var emiAmount = button.getAttribute('data-amount');
+    var next_due = button.getAttribute('data-next_due');
+
+    // Populate modal fields with fetched data
+ document.getElementById('emiNoInput').value = emiNumber;
+   document.getElementById('amountInput').value = emiAmount;
+    document.getElementById('nextDue').value = next_due;
+
+
+    // Show the modal
+    $('#payment-modal').modal('show');
+}
+</script>
