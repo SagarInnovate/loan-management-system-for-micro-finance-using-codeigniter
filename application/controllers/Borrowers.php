@@ -15,7 +15,7 @@ class Borrowers extends CI_Controller
 
 		$this->check_auth('create_borrowers');
 
-		$title['title'] = "RFSC-Create Borrowers";
+		$title['title'] = "Navnirman -Create Borrowers";
 
 		//get last account_no of client
 		$account_no = $this->borrowers_model->get_account_id();
@@ -39,9 +39,10 @@ class Borrowers extends CI_Controller
 
 		$this->check_auth('create_borrowers');
 
-		$title['title'] = "RFSC-New Borrowers";
+		$title['title'] = "Navnirman -New Borrowers";
 
 		$clients['new_clients'] = $this->borrowers_model->get_new_clients();
+		// print_r($clients['new_clients']);
 
 		$this->load->view('templates/header', $title);
 		$this->load->view('borrowers/new_borrowers', $clients);
@@ -50,7 +51,7 @@ class Borrowers extends CI_Controller
 	public function active_borrowers()
 	{
 
-		$title['title'] = "RFSC-Active Borrowers";
+		$title['title'] = "Navnirman -Active Borrowers";
 
 		$this->check_auth('active_borrowers');
 

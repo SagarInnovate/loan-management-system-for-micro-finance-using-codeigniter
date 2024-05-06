@@ -82,15 +82,19 @@ $(document).ready(function() {
 // ==================== Pay Payments ================
 
 $(document).on('click', '.pay', function(){
-	var daily_payment = $('.daily_payment').val();
-	var loan_no = $('.loan_no').val();
+	var amount = $('.emi_amount').val();
+	var emi_no = $('.emi_no').val();
+    var loan_no = $('.loan_no').val();
+	var next_due = $('.next_due').val();  
 
 	$.ajax({
 		type: "POST",
 		url: BASE_URL+"pay-loan",
 		data: {
-			daily_payment: daily_payment,
-			loan_no: loan_no
+			emi_amount:amount,
+            emi_no:emi_no,
+			loan_no: loan_no,
+			next_due: next_due
 		},
 		dataType: "json",
 		cache: false,

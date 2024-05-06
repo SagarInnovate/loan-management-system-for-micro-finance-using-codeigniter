@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>RFS Corporation</title>
+    <title>Navnirman Finance</title>
     <style>
       /* -------------------------------------
           GLOBAL RESETS
@@ -319,7 +319,7 @@
           	<table role="presentation" border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td >
-                    <h2 style="margin-bottom: 5px;padding-bottom: 5px;">RFS Corporation</h2>
+                    <h2 style="margin-bottom: 5px;padding-bottom: 5px;">Navnirman Finance</h2>
                     <p style="text-align: center;">Our mission is to help people through life.</p>
                     <br>
                   </td>

@@ -66,15 +66,13 @@
                                                 <?php if($appr['loan_status'] == 'Approved'){?>
                                                     <button type="button" rel="tooltip" title="Release cash for this loan" class="btn btn-primary btn-sm btn-link" data-target="#cash<?php echo $appr['loan_no'];?>" id="cash-release<?php echo $appr['loan_no'];?>" data-toggle="modal">
                                                         <i class="material-icons">monetization_on</i>
-                                                    </button>|
+                                                    </button>
                                                 <?php }else{?> 
                                                     <button type="button" rel="tooltip" title="Go to Payments" class="btn btn-info btn-sm btn-link" onclick="location.href='<?php echo base_url().'payments/loan-details/'.$appr['loan_no'];?>'">
                                                         <i class="material-icons">payment</i>
-                                                    </button>|
-                                                <?php } ?>
-                                                <button type="button" rel="tooltip" title="View Promissory Note" class="btn btn-danger btn-sm mr-2 btn-link" onclick="location.href='<?php echo base_url().'promissory/'.$appr['loan_no'];?>'">
-                                                        <i class="material-icons">featured_play_list</i>
                                                     </button>
+                                                <?php } ?>
+                                                
                                             </td>
                                         </tr>
                                          <!-- Modal  -->

@@ -60,7 +60,7 @@ $(document).ready(function() {
         buttons: [
             {
             	'extend': 'pdfHtml5',
-                'title': 'RFS Corporation Borrowers Report',
+                'title': 'Navnirman Finance Borrowers Report',
                 'orientation': 'landscape',
                 'tag': 'button',
                 'className': 'btn btn-primary btn-round text-primary btn-sm',
@@ -76,19 +76,19 @@ $(document).ready(function() {
             },
             {
             	'extend': 'copy',
-                'title': 'RFS Corporation Borrowers Report',
+                'title': 'Navnirman Finance Borrowers Report',
                 'tag': 'button',
                 'className': 'btn btn-primary btn-round text-primary btn-sm',
             },
             {
             	'extend': 'csv',
-                'title': 'RFS Corporation Borrowers Report',
+                'title': 'Navnirman Finance Borrowers Report',
                 'tag': 'button',
                 'className': 'btn btn-primary btn-round text-primary btn-sm',
             },
             {
             	'extend': 'print',
-                'title': 'RFS Corporation Borrowers Report',
+                'title': 'Navnirman Finance Borrowers Report',
                 'tag': 'button',
                 'className': 'btn btn-primary btn-round text-primary btn-sm',
             }
@@ -101,7 +101,7 @@ $(document).ready(function() {
         buttons: [
             {
             	'extend': 'pdfHtml5',
-                'title': 'RFS Corporation Loans Report',
+                'title': 'Navnirman Finance Loans Report',
                 'tag': 'button',
                 'className': 'btn btn-primary btn-round text-primary btn-sm',
             	customize: function ( doc ) {
@@ -116,19 +116,19 @@ $(document).ready(function() {
             },
             {
             	'extend': 'copy',
-                'title': 'RFS Corporation Loans Report',
+                'title': 'Navnirman Finance Loans Report',
                 'tag': 'button',
                 'className': 'btn btn-primary btn-round text-primary btn-sm',
             },
             {
             	'extend': 'csv',
-                'title': 'RFS Corporation Loans Report',
+                'title': 'Navnirman Finance Loans Report',
                 'tag': 'button',
                 'className': 'btn btn-primary btn-round text-primary btn-sm',
             },
             {
             	'extend': 'print',
-                'title': 'RFS Corporation Loans Report',
+                'title': 'Navnirman Finance Loans Report',
                 'tag': 'button',
                 'className': 'btn btn-primary btn-round text-primary btn-sm',
             }
@@ -140,7 +140,7 @@ $(document).ready(function() {
         buttons: [
             {
             	'extend': 'pdfHtml5',
-                'title': 'RFS Corporation Payments Report',
+                'title': 'Navnirman Finance Payments Report',
                 'tag': 'button',
                 'className': 'btn btn-primary btn-round text-primary btn-sm',
             	customize: function ( doc ) {
@@ -155,19 +155,19 @@ $(document).ready(function() {
             },
             {
             	'extend': 'copy',
-                'title': 'RFS Corporation Payments Report',
+                'title': 'Navnirman Finance Payments Report',
                 'tag': 'button',
                 'className': 'btn btn-primary btn-round text-primary btn-sm',
             },
             {
             	'extend': 'csv',
-                'title': 'RFS Corporation Payments Report',
+                'title': 'Navnirman Finance Payments Report',
                 'tag': 'button',
                 'className': 'btn btn-primary btn-round text-primary btn-sm',
             },
             {
             	'extend': 'print',
-                'title': 'RFS Corporation Payments Report',
+                'title': 'Navnirman Finance Payments Report',
                 'tag': 'button',
                 'className': 'btn btn-primary btn-round text-primary btn-sm',
             }

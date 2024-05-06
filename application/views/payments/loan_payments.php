@@ -60,7 +60,7 @@
                                                 <?php if(empty($loan['profile_img'])){ ?>
                                                             <img class="border-round" src="<?php echo base_url().'assets/images/person.png' ?>" width="250"/>
                                                         <?php }else{ ?>
-                                                            <img class="img-fluid" width="250" id="output" src="<?php echo base_url().'uploads/'.$loan['profile_img']; ?>" alt="client-img"  />
+                                                            <img class="img-fluid" width="250" id="output" src="<?php echo $loan['profile_img']; ?>" alt="client-img"  />
                                                         <?php } ?>
                                                 </div>
                                             </div>
@@ -296,7 +296,7 @@ $recived=$total_amount-$remaining;
                                                                 <div class="ml-auto mr-auto">
                                                                     
                                                                 </div>    
-                                                            </div><form action="<?php echo base_url()."pay-loan"  ?>" method="post">
+                                                            </div><form   method="post">
 
                                                             <div class="form-group mt-4">
                                                                 <label class="bmd-label-floating">Date Now</label>
@@ -322,7 +322,7 @@ $recived=$total_amount-$remaining;
                                                     </div>
 
                                                     <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-primary btn-round btn-sm ml-3 paqy">Pay</button>
+                                                    <button type="submit" class="btn btn-primary btn-round btn-sm ml-3 pay">Pay</button>
                                                     </form>
                                                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
                                                     </div>

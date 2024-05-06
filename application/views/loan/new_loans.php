@@ -29,7 +29,7 @@
                         <div class="tab-content tab-space">
                             <div class="tab-pane active">
                                  <div class="card">
-                                 <h1>Verify Loan</h1>
+                               
           <div class="card-header card-header-primary">
                             <h4 class="card-title mt-0">Loan Applicant Table</h4>
                             <p class="card-category"> Below is the list of all new loan applicants</p>

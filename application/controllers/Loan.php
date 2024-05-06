@@ -13,7 +13,7 @@ class Loan extends CI_Controller {
 
     	$this->check_auth('create_loan');
 
-    	$title['title'] = "RFSC-Create Loan";
+    	$title['title'] = "Navnirman -Create Loan";
 
 		//get last loan_no of client
 		$loan_no = $this->loan_model->get_loan_no();
@@ -43,7 +43,7 @@ class Loan extends CI_Controller {
 
     public function new_loans(){
 
-		$title['title'] = "RFSC-New Loans";
+		$title['title'] = "Navnirman -New Loans";
 
 		$this->check_auth('new_loans');
 
@@ -57,7 +57,7 @@ class Loan extends CI_Controller {
 
 	public function approved_loans(){
 
-		$title['title'] = "RFSC-Approved Loans";
+		$title['title'] = "Navnirman -Approved Loans";
 
 		$this->check_auth('approve_loans');
 
@@ -79,7 +79,7 @@ class Loan extends CI_Controller {
 
 			if(!is_null($result)){
 
-				$title['title'] = "RFSC-Promissory Note";
+				$title['title'] = "Navnirman -Promissory Note";
 
 				$result['cmaker'] = $this->borrowers_model->get_co_maker($result['loan']['account_no']);
 
@@ -95,7 +95,7 @@ class Loan extends CI_Controller {
 	}
 
 	public function paid_loans(){
-		$title['title'] = "RFSC-Paid Loans";
+		$title['title'] = "Navnirman -Paid Loans";
 
 		$this->check_auth('paid_loans');
 
@@ -108,7 +108,7 @@ class Loan extends CI_Controller {
 
 	public function rejected_loans(){
 
-		$title['title'] = "RFSC-Rejected Loans";
+		$title['title'] = "Navnirman -Rejected Loans";
 
 		$this->check_auth('rejected_loans');
 		
@@ -162,7 +162,7 @@ class Loan extends CI_Controller {
 		// Retrieve loan data from POST
 
 		$loan_data = array(
-			'loan_no' => $this->input->post('loan'),
+			'loan_no' => $this->input->post('loan_no'),
 			'full_name' => $this->input->post('full_name'),
 			'account_no' => $this->input->post('account_no'),
 			'collector' => $this->input->post('collector'),
@@ -180,7 +180,6 @@ class Loan extends CI_Controller {
 			'address'=>$this->input->post('address')
 		);
 
-		print_r($loan_data);
 	
 		
 	
@@ -195,7 +194,7 @@ class Loan extends CI_Controller {
 			// Check if email notification is requested and email is valid
 			// if ($email_notif == 'yes' && filter_var($loan_data['email'], FILTER_VALIDATE_EMAIL)) {
 			// 	// Send email notification
-			// 	$subject = "RFSC Loan Application Verification";
+			// 	$subject = "Navnirman  Loan Application Verification";
 			// 	$template = "templates/email_template";
 			// 	$sendmail = $this->send_email($loan_data['full_name'], $loan_data['email'], $loan_data['amount'], $loan_data['business'], $subject, $template);
 	
@@ -227,7 +226,7 @@ class Loan extends CI_Controller {
 	
 			// ============= API is in trial ======================
 			// $msg = "Hi, This is to notify you that your loan application is being process. From RFS Corporation.";
-			// $apicode = "TR-RFSCO761275_H4IDW";
+			// $apicode = "TR-Navnirman O761275_H4IDW";
 
 			// if($sim1_notif == 'yes'){
 			// 	$send_sms1 = $this->itexmo($sim1, $msg, $apicode);
@@ -306,9 +305,10 @@ class Loan extends CI_Controller {
 	
 		public function approve_loan() {
 			// Check if loan application exists for the provided loan ID
-			print_r($this->input->post());
+		
 			$loan_id = $this->input->post('loan_id');
 			$loan_exists = $this->loan_model->check_loan_exists($loan_id);
+			
 			
 			if ($loan_exists) {
 				// Retrieve loan details from loan application
@@ -327,16 +327,15 @@ class Loan extends CI_Controller {
 				$approval_result = $this->loan_model->approve_loan($approved_loan_data,$loan_id);
 				
 				if ($approval_result) {
-					// Loan approved successfully
-					// You can redirect to a success page or return a success message
+					$response['messages'] = 'Loan Approved!';
+					$response['success'] = true;
 				} else {
-					// Error occurred while approving loan
-					// You can redirect to an error page or return an error message
+					$response['messages'] = 'Something Went Wrong';
 				}
 			} else {
-				// Loan application not found
-				// You can redirect to an error page or return an error message
+				$response['messages'] = 'Loan Application Not Found';
 			}
+			echo json_encode($response);
 		}
 	
 		private function calculate_approved_loan($amount, $interest_rate, $loan_type, $duration,$loan_no) {
@@ -345,7 +344,7 @@ class Loan extends CI_Controller {
 			$total_payable_amount = $amount + ($amount * ($interest_rate / 100));
 	
 			// Calculate loan term based on loan type
-			if ($loan_type === 'weekly') {
+			if ($loan_type === 'Weekly') {
 				$loan_term = $duration * 7; // Convert weeks to days
 			} else {
 				$loan_term = $duration * 30; // Convert months to days
@@ -356,9 +355,9 @@ class Loan extends CI_Controller {
 			$end_date = date('Y-m-d', strtotime("+$loan_term days"));
 	
 			// Calculate monthly or weekly EMI
-			if ($loan_type === 'weekly') {
-				$weeks = ceil($duration / 7); // Calculate total weeks
-				$weekly_emi = $total_payable_amount / $weeks; // Calculate weekly EMI
+			if ($loan_type === 'Weekly') {
+	
+				$weekly_emi = $total_payable_amount / $duration; // Calculate weekly EMI
 			} else {
 				$monthly_emi = $total_payable_amount / $duration; // Calculate monthly EMI
 			}
@@ -371,8 +370,8 @@ class Loan extends CI_Controller {
 				'date_approved' => date('Y-m-d'),
 				'loan_started' => $start_date,
 				'end_date' => $end_date,
-				'emi_amount' => ($loan_type === 'weekly' ? $weekly_emi : $monthly_emi),
-				'due_date' => $end_date,
+				'emi_amount' => ($loan_type === 'Weekly' ? $weekly_emi : $monthly_emi),
+				'due_date' => date('Y-m-d'),
 				'status' => 'Active'
 			);
 	

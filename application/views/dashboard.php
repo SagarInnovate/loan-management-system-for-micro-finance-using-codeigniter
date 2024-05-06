@@ -40,7 +40,7 @@
 						<i class="material-icons">store</i>
 					</div>
 					<p class="card-category">Revenue</p>
-					<h3 class="card-title">P <?php if(empty($payments['amnt'])){ echo '0.00' ;}else{ echo $payments['amnt'];}?></h3>
+					<h3 class="card-title">₹ <?php if(empty($payments['amnt'])){ echo '0.00' ;}else{ echo $payments['amnt'];}?></h3>
 					</div>
 					<div class="card-footer">
 					<div class="stats">
@@ -72,7 +72,7 @@
 						<i class="material-icons">monetization_on</i>
 					</div>
 					<p class="card-category">Release Cash</p>
-					<h3 class="card-title"><?echo $cash;?></h3>
+					<h3 class="card-title"><?php echo $cash;?></h3>
 					</div>
 					<div class="card-footer">
 					<div class="stats">

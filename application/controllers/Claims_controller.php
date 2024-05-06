@@ -11,7 +11,7 @@ class Claims_controller extends CI_Controller {
 			redirect('dashboard');
 		}
 
-		$title['title'] = "RFSC - Login";
+		$title['title'] = "Navnirman  - Login";
 		$this->load->view('templates/header', $title);
 		$this->load->view('login');
 	}
@@ -96,7 +96,7 @@ class Claims_controller extends CI_Controller {
 	public function staff(){
 		$this->check_auth('staff');
 
-		$title['title'] = "RFSC - Staff List";
+		$title['title'] = "Navnirman  - Staff List";
 
 		$result['stafflist'] = $this->claims_model->get_staff();
 
@@ -109,7 +109,7 @@ class Claims_controller extends CI_Controller {
 
 		$this->check_auth('user_profile');
 
-		$title['title'] = "RFSC - My Profile";
+		$title['title'] = "Navnirman  - My Profile";
 
 		$result['staff'] = $this->claims_model->get_user_profile($username);
 
@@ -262,7 +262,7 @@ class Claims_controller extends CI_Controller {
 
 	public function back_up(){
 
-		$title['title'] = "RFSC - Back up";
+		$title['title'] = "Navnirman  - Back up";
 
 		$this->load->view('templates/header', $title);
 		$this->load->view('backup/back_up');

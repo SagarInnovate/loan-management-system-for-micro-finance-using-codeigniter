@@ -12,7 +12,7 @@ class Reports extends CI_Controller {
 
     public function all_reports(){
 
-    	$title['title'] = "RFSC - Reports";
+    	$title['title'] = "Navnirman  - Reports";
 
         $data['clients'] = $this->reports_model->get_all_clients();
         $data['loans'] = $this->reports_model->get_all_loans();

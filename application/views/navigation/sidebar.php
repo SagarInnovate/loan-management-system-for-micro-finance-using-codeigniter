@@ -6,7 +6,7 @@
 		-->
 	<div class="logo m-1 form-group">
 		
-		<a href="#" class="simple-text logo-normal font-weight-bold"><img src="<?php echo base_url();?>/assets/images/rfsc.png" height="50" width="50"> RFS Corporation</a>
+		<a href="#" class="simple-text logo-normal font-weight-bold"><img src="<?php echo base_url();?>/assets/images/rfsc.png" height="50" width="50"> Navnirman Finance</a>
 	</div>
 	<?php $site = $_SERVER['PATH_INFO'];?>
 	<div class="sidebar-wrapper">

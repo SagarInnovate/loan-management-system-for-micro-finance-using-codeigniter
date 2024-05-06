@@ -50,7 +50,7 @@ class Payments_model extends CI_Model {
             $result = $query->row();
             $remaining_emis = $result->remaining_emis;
     
-            // Update due_date and remaining_emis in approved_loan table
+            // Update due_date and remaining_emis in approved_loan Jtable
             $this->db->where('loan_no', $loan_no);
             $this->db->set('due_date', $data["next_due"]); // Assuming due_date should be incremented by 1 day
             $this->db->set('remaining_emis', intval($remaining_emis) - 1);
@@ -111,7 +111,7 @@ class Payments_model extends CI_Model {
     
         // Calculate the starting EMI number for unpaid EMIs
         $starting_emi = $max_emi_no + 1;
-        print_r($starting_emi);
+       
         // Calculate unpaid EMIs
         $unpaid_emis = array();
         if ($loan_type == 'Monthly') {

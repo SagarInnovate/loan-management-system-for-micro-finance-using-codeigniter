@@ -247,6 +247,7 @@ class Borrowers_model extends CI_Model {
         $this->db->join('names', 'clients.account_no = names.account_no');
         $this->db->where('status', 'New');
         $this->db->or_where('status', 'Verified');
+        $this->db->order_by('clients.account_no', 'DESC'); // Order by the created_at column in descending order
         $result = $this->db->get();
 
         return $result->result_array();

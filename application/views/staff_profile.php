@@ -30,7 +30,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="bmd-label-floating">Company</label>
-                                                        <input type="text" class="form-control" value="RFS Corporation" disabled>
+                                                        <input type="text" class="form-control" value="Navnirman Finance" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -49,7 +49,7 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label class="bmd-label-floating">Fist Name</label>
+                                                        <label class="bmd-label-floating">First Name</label>
                                                         <input type="text" name="fname" class="form-control fname">
                                                     </div>
                                                 </div>
@@ -203,8 +203,9 @@
                                         <div class="card-avatar" style="height: 150px">
                                             <?php if(empty($staff['profile_img'])){?>
                                                 <img class="img" src="<?php echo base_url();?>assets/images/person.png" />
-                                            <?}else{?>
+                                            <?php }else{?>
                                                 <img class="img"  style="height:130px" src="<?php echo base_url().'uploads/'.$staff['profile_img'];?>" />
+                                                <p>helo</p>
                                             <?php } ?>
                                         </div>
                                         <div class="card-body">

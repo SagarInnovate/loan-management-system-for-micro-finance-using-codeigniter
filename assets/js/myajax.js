@@ -151,22 +151,23 @@ $(document).ready(function() {
 // =============== Approved Loan ================
 $(document).on('click', '.approve', function(){
 	var id = $(this).attr('id');
-	var amount = $('#amount'+id).text();
 
-	var $button = $('.approve'+id);
-	var table = $("#loan_clients_table").DataTable();
 	
 	$.ajax({
 		url: BASE_URL+"approve-loan",
 		method: 'POST',
 		data:{
-			id:id,
-			amount:amount
+			loan_id:id,
 		},
 		dataType: "json",
 		success: function(data){
 			if(data.success){
 
+				showNotification(
+					response.messages,
+					"check_circle",
+					"success"
+				);
 				if(data.email){
 					showNotification(
 						"Email notification sent successfully!",
@@ -180,19 +181,6 @@ $(document).on('click', '.approve', function(){
 						"warning"
 					);
 				}
-				// ====== SMS API is in Trial =============
-				// showNotification(
-				// 	data.sim1,
-				// 	"info",
-				// 	"success"
-				// );
-
-				// showNotification(
-				// 	data.sim2,
-				// 	"info",
-				// 	"success"
-				// );
-
 				$("#loading-screen").hide();
 				setTimeout(function() {
 					window.location.reload(1);
@@ -687,83 +675,64 @@ $(document).on('click','.search_account',function(){
 	return false;
 });
 
+$(document).ready(function() {
+    $(".create-loan").click(function(e) {
+        e.preventDefault();
 
-// $(document).ready(function() {
-//     $(".create-loan").click(function(e) {
-//         e.preventDefault();
+        var formData = {
+            loan_no: $('.loan_no').val(),
+            account_no: $('.accnt_no').val(),
+            amount: $('#amount').val(),
+            collector: $('.collector').val(),
+            verifier: $('.verifier').val(), // There are two 'verifier' keys here. Is this intended?
+            date: $('.date').val(), // Assuming 'date' is a separate field, not 'verifier'
+            full_name: $('.full_name').val(),
+            email: $('.email').val(),
+            interestRate: $('#interestRate').val(),
+            loanType: $('#loanType').val(),
+            duration: $('#duration').val(),
+            occupation: $('#occupation').val(),
+            employer: $('#employer').val(),
+            employmentStatus: $('#employmentStatus').val(),
+            monthlyIncome: $('#monthlyIncome').val(),
+            address: $('.address').val(),
+            email_notif: $('#email-toggle').hasClass('email') ? 'yes' : '',
+            sim1_notif: $('#sim1-toggle').hasClass('sim1') ? 'yes' : '',
+            sim2_notif: $('#sim2-toggle').hasClass('sim2') ? 'yes' : '',
+            sim1: $('#sim1-toggle').hasClass('sim1') ? $('.sim1').val() : '',
+            sim2: $('#sim2-toggle').hasClass('sim2') ? $('.sim2').val() : ''
+        };
 
-//         var loan_no = $('.loan_no').val();
-//         var account_no = $('.accnt_no').val();
-//         var loan_amount = $('.amount').val();
-//         var collector = $('.collector').val();
-//         var full_name = $('.full_name').val();
-//         var email = $('.email').val();
-//         var verifier = $('.verifier').val();
-//         var interestRate = $('#interestRate').val();
-//         var loanType = $('#loanType').val();
-//         var duration = $('#duration').val();
-//         var occupation = $('#occupation').val();
-//         var employer = $('#employer').val();
-//         var employmentStatus = $('#employmentStatus').val();
-//         var monthlyIncome = $('#monthlyIncome').val();
-//         var address = $('.street1').val();
-       
+        console.log("Form Data:", formData); // Log the form data for debugging
 
-//         var email_toggle = $('#email-toggle').hasClass('email');
-//         var sim1_toggle = $('#sim1-toggle').hasClass('sim1');
-//         var sim2_toggle = $('#sim2-toggle').hasClass('sim2');
+        $.ajax({
+            type: "POST",
+            url: BASE_URL + "insert-loan",
+            dataType: "json",
+            data: formData,
+            cache: false,
 
-//         var email_notif = email_toggle ? 'yes' : '';
-//         var sim1_notif = sim1_toggle ? 'yes' : '';
-//         var sim2_notif = sim2_toggle ? 'yes' : '';
-
-//         var sim1 = sim1_toggle ? $('.sim1').val() : '';
-//         var sim2 = sim2_toggle ? $('.sim2').val() : '';
-
-//         $.ajax({
-//             type: "POST",
-//             url: BASE_URL + "insert-loan",
-//             dataType: "json",
-//             data: {
-//                 loan_no: loan_no,
-//                 account_no: account_no,
-//                 loan_amount: loan_amount,
-//                 collector: collector,
-//                 verifier: verifier,
-//                 full_name: full_name,
-//                 email: email,
-//                 interestRate: interestRate,
-//                 loanType: loanType,
-//                 duration: duration,
-//                 occupation: occupation,
-//                 employer: employer,
-//                 employmentStatus: employmentStatus,
-//                 monthlyIncome: monthlyIncome,
-//                 address: address,
-//                 email_notif: email_notif,
-//                 sim1_notif: sim1_notif,
-//                 sim2_notif: sim2_notif,
-//                 sim1: sim1,
-//                 sim2: sim2,
-//             },
-//             cache: false,
-
-//             success: function(response) {
-//                 $("#loading-screen").hide();
-//                 if (response.success == true) {
-//                     showNotification(response.messages, "check_circle", "success");
-//                     if (response.email == false) {
-//                         showNotification('Email notification failed! Email is not valid!', "info", "warning");
-//                     }
-//                     $("#loan-form")[0].reset();
-//                     setTimeout(function() {
-//                         window.location.reload(1);
-//                     }, 3000);
-//                 } else {
-//                     showNotification(response.messages, "info", "danger");
-//                 }
-//             }
-//         });
-//     });
-// });
-
+            success: function(response) {
+                console.log("AJAX Response:", response); // Log the AJAX response for debugging
+                $("#loading-screen").hide();
+                if (response.success == true) {
+                    showNotification(response.messages, "check_circle", "success");
+                    if (response.email == false) {
+                        showNotification('Email notification failed! Email is not valid!', "info", "warning");
+                    }
+                    console.log("Loan successfully created."); // Log success message
+                    // $("#loan-form")[0].reset();
+                    // setTimeout(function() {
+                    //     window.location.reload(1);
+                    // }, 3000);
+                } else {
+                    showNotification(response.messages, "info", "danger");
+                    console.log("Failed to create loan:", response.messages); // Log error message
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log("AJAX Error:", error); // Log AJAX error for debugging
+            }
+        });
+    });
+});

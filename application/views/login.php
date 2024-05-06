@@ -45,7 +45,7 @@
         </div>
         <div class="text-center col-12">
             <small>
-                Powered by:<img class="img img-fluid" width="30" src="<?php echo base_url();?>assets/images/claims-logo.png">CLAIMS
+                Powered by:<img class="img img-fluid" width="30" src="<?php echo base_url();?>assets/images/claims-logo.png"> GrowMediaX
             </small>
         </div> 
     </div> 

@@ -18,7 +18,7 @@ class Payments extends CI_Controller {
 	
 			if (!empty($loan_details)) {
 				// Fetch payment information
-				$payment_info = $this->payments_model->payment_check($loan_no);
+			
 	
 				// Fetch paid EMIs for the loan
 				$paid_emis = $this->payments_model->get_paid_emis($loan_no);
@@ -28,11 +28,10 @@ class Payments extends CI_Controller {
 	
 				// Pass data to the view
 				$data['loan'] = $loan_details;
-				$data['pny'] = $payment_info;
 				$data['paid_emis'] = $paid_emis;
 				$data['unpaid_emis'] = $unpaid_emis;
 	
-				$title['title'] = "RFSC-Loan Details";
+				$title['title'] = "Navnirman -Loan Details";
 	
 				$this->load->view('templates/header', $title);
 				$this->load->view('payments/loan_payments', $data);
@@ -42,7 +41,7 @@ class Payments extends CI_Controller {
 			}
 		} else {
 			// Load view to search for loans if no loan number provided
-			$title['title'] = "RFSC-Search Loans";
+			$title['title'] = "Navnirman -Search Loans";
 	
 			$this->load->view('templates/header', $title);
 			$this->load->view('payments/loan_search');

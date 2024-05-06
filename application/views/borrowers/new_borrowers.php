@@ -39,26 +39,26 @@
                                         <th>Action</th>
                                     </thead>
                                     <tbody>
-                                        <?php foreach($new_clients as $key => $newC){ ?>
+                                        <?php for($i=0;$i<count($new_clients);$i++){ ?>
                                         <tr>
-                                            <td><?php echo $newC['account_no'];?></td>
+                                            <td><?php echo $new_clients[$i]['account_no'];?></td>
                                             <td>
-                                                <a href="<?php echo base_url().'borrowers/profile/'.$newC['account_no'];?>" rel="tooltip" title="Go to profile"><?php echo $newC['lastname'].','.$newC['firstname'].' '.$newC['middlename'];?></a>
+                                                <a href="<?php echo base_url().'borrowers/profile/'.$new_clients[$i]['account_no'];?>" rel="tooltip" title="Go to profile"><?php echo $new_clients[$i]['lastname'].','.$new_clients[$i]['firstname'].' '.$new_clients[$i]['middlename'];?></a>
                                             </td>
                                             <td>
-                                                 <?php echo $newC['street'].', '.$newC['city'].', '.$newC['postal_code'];?></td>
+                                                 <?php echo $new_clients[$i]['street'].', '.$new_clients[$i]['city'].', '.$new_clients[$i]['postal_code'];?></td>
                                             <td>
-                                                <span class="font-italic text-muted "><?php echo $newC['status'];?></span>
+                                                <span class="font-italic text-muted "><?php echo $new_clients[$i]['status'];?></span>
                                             </td>
 
                                             <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="View borrowers" class="btn btn-info btn-sm btn-link" data-target="#clients-<?php echo $newC['account_no'];?>" data-toggle="modal">
+                                                <button type="button" rel="tooltip" title="View borrowers" class="btn btn-info btn-sm btn-link" data-target="#clients-<?php echo $new_clients[$i]['account_no'];?>" data-toggle="modal">
                                                     <i class="material-icons">visibility</i> 
                                                 </button>|
-                                                <button type="button" rel="tooltip" title="Apply Loan" class="btn btn-primary btn-sm btn-link" onclick="location.href='<?php echo base_url().'loan/create-loan/'.$newC['account_no'];?>'">
+                                                <button type="button" rel="tooltip" title="Apply Loan" class="btn btn-primary btn-sm btn-link" onclick="location.href='<?php echo base_url().'loan/create-loan/'.$new_clients[$i]['account_no'];?>'">
                                                     <i class="material-icons">monetization_on</i>
                                                 </button>|
-                                                <button type="button" rel="tooltip" title="Remove borrowers" class="btn btn-danger btn-sm btn-link" data-target="#delete_client<?php echo $newC['account_no'];?>" id="remove-loan<?php echo $newC['account_no'];?>" data-toggle="modal">
+                                                <button type="button" rel="tooltip" title="Remove borrowers" class="btn btn-danger btn-sm btn-link" data-target="#delete_client<?php echo $new_clients[$i]['account_no'];?>" id="remove-loan<?php echo $new_clients[$i]['account_no'];?>" data-toggle="modal">
                                                     <i class="material-icons">remove_circle</i>
                                                 </button>
                                             </td>
@@ -66,7 +66,7 @@
 
                                         
                                         <!-- Modal to view client data -->
-                                        <div class="modal fade" id="clients-<?php echo $newC['account_no'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="clients-<?php echo $new_clients[$i]['account_no'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -78,38 +78,38 @@
                                                     <div class="modal-body">
                                                         <div class="row">
                                                             <div class="col-md-4">
-                                                             <?php   if(empty($newC['profile_img'])){ ?>
+                                                             <?php   if(empty($new_clients[$i]['profile_img'])){ ?>
                                                                 <img class="border-round" src="<?php echo base_url().'assets/images/person.png' ?>" width="150" height="150"/>
                                                             <?php }else{ ?>
-                                                                <img class="border-round" src="<?php echo base_url().'uploads/'.$newC['profile_img'];?>" width="150" height="150"/>
+                                                                <img class="border-round" src="<?php echo $new_clients[$i]['profile_img'];?>" width="150" height="150"/>
                                                             <?php } ?>
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <p><strong>Name:</strong> 
-                                                                    <?php echo $newC['firstname'].' '.$newC['middlename'].' '.$newC['lastname'];?>    
+                                                                    <?php echo $new_clients[$i]['firstname'].' '.$new_clients[$i]['middlename'].' '.$new_clients[$i]['lastname'];?>    
                                                                 </p>
                                                                 <p><strong>Email:</strong> 
-                                                                    <?php echo $newC['email']; ?>
+                                                                    <?php echo $new_clients[$i]['email']; ?>
                                                                 </p>
                                                                 <p><strong>Contact No:</strong>
-                                                                    <?php echo $newC['number1']; ?>,<?php echo $newC['number2']; ?>
+                                                                    <?php echo $new_clients[$i]['number1']; ?>,<?php echo $new_clients[$i]['number2']; ?>
                                                                 </p>
                                                                 <p><strong>Info:</strong>
-                                                                    <?php echo $newC['added_info']; ?>
+                                                                    <?php echo $new_clients[$i]['added_info']; ?>
                                                                 </p>
                                                             </div>
                                                       </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="button" onclick="location.href='<?php echo base_url().'borrowers/profile/'.$newC['account_no'];?>'" class="btn btn-primary">Go to profile</button>
+                                                        <button type="button" onclick="location.href='<?php echo base_url().'borrowers/profile/'.$new_clients[$i]['account_no'];?>'" class="btn btn-primary">Go to profile</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- End of modal -->
                                         <!-- Modal for remove clients -->
-                                        <div class="modal fade" id="delete_client<?php echo $newC['account_no'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="delete_client<?php echo $new_clients[$i]['account_no'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -124,7 +124,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                        <button type="button" class="btn btn-danger delete" id="<?php echo $newC['account_no'];?>">Remove</button>
+                                                        <button type="button" class="btn btn-danger delete" id="<?php echo $new_clients[$i]['account_no'];?>">Remove</button>
                                                     </div>
                                                 </div>
                                             </div>

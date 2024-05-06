@@ -28,7 +28,7 @@
                                             <p class="card-category">Complete the loan application form</p>
                                         </div>
                                         <div class="card-body form-body mt-2">
-                                            <form id="loan-form" action="<?php echo base_url()."insert-loan" ?>" method="POST">
+                                            <form id="loan-form" method="POST">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="row">
@@ -41,7 +41,7 @@
                                                                             readonly>
                                                                     <?php } else { ?>
                                                                         <input type="text" class="form-control loan_no"
-                                                                            name="loan" value="L<?php echo $loan_no + 1; ?>"
+                                                                            name="loan_no" value="L<?php echo $loan_no + 1; ?>"
                                                                             readonly>
                                                                     <?php } ?>
                                                                 </div>
@@ -50,11 +50,11 @@
                                                                 <div class="input-group no-border">
                                                                     <?php if (isset($account_no)) { ?>
                                                                         <input type="text" value="<?php echo $account_no ?>"
-                                                                            class="form-control accnt_no" name="account_no"
+                                                                            class="form-control accnt_no " name="account_no"
                                                                             placeholder="Account no" autofocus required>
                                                                     <?php } else { ?>
                                                                         <input type="text" value=""
-                                                                            class="form-control accnt_no" name="account_no"
+                                                                            class="form-control accnt_no " name="account_no"
                                                                             placeholder="Account no" autofocus required>
                                                                     <?php } ?>
                                                                     <button type="submit"
@@ -113,7 +113,7 @@
                                                         <div class="row">
                                                             <div class="col-md-3">
                                                                 <div class="form-group input-group-prepend">
-                                                                    <span class="input-group-text">₱</span>
+                                                                    <span class="input-group-text">₹</span>
                                                                     <label for="amount"
                                                                         class="bmd-label-floating pl-3">Loan
                                                                         Amount</label>
@@ -312,7 +312,7 @@
                                               
                                                    
                                                 <div class="mt-2">
-                                                    <button type="submit"
+                                                    <button 
                                                         class="btn btn-primary btn-round pull-right create-loan"><i
                                                             class="material-icons">check_circle</i> Submit</button>
                                                     <button
@@ -423,7 +423,7 @@
             totalPayableAmount = amount + (amount * (interestRate / 100));
 
             // Calculate loan term based on loan type
-            if (loanType === 'weekly') {
+            if (loanType === 'Weekly') {
                 loanTerm = duration * 7; // Convert weeks to days
             } else {
                 loanTerm = duration * 30; // Convert months to days
@@ -437,7 +437,7 @@
             // Display important loan information
             document.getElementById('loanAmount').innerText = '₹' + totalAmount.toFixed(2);
             document.getElementById('totalPayableAmount').innerText = '₹' + totalPayableAmount.toFixed(2);
-            document.getElementById('loanDuration').innerText = duration + ' ' + (loanType === 'weekly' ? 'weeks' : 'months');
+            document.getElementById('loanDuration').innerText = duration + ' ' + (loanType === 'Weekly' ? 'weeks' : 'months');
             document.getElementById('loanTypeDisplay').innerText = loanType.charAt(0).toUpperCase() + loanType.slice(1); // Capitalize first letter
             document.getElementById('startDate').innerText = startDate;
             document.getElementById('endDate').innerText = endDate.toLocaleDateString();
@@ -445,18 +445,18 @@
             document.getElementById('interestRateAmount').innerText = '₹' + (totalPayableAmount - totalAmount).toFixed(2);
 
             // Generate loan schedule
-            if (loanType === 'weekly') {
-                var weeks = Math.ceil(duration / 7); // Calculate total weeks
-                var weeklyEmi = totalPayableAmount / weeks; // Calculate weekly EMI
+            if (loanType === 'Weekly') {
+                // Calculate total weeks
+                var weeklyEmi = totalPayableAmount / duration; // Calculate weekly EMI
 
                 // Generate loan schedule on a weekly basis
-                for (var i = 0; i < weeks; i++) {
+                for (var i = 0; i < duration; i++) {
                     var emiDate = new Date();
                     emiDate.setDate(emiDate.getDate() + i * 7); // Increment date by 7 days (1 week)
 
                     loanSchedule.push({
                         emiDate: emiDate.toLocaleDateString(),
-                        principalAmount: (amount / weeks).toFixed(2),
+                        principalAmount: (amount / duration).toFixed(2),
                         totalEmiAmount: weeklyEmi.toFixed(2),
                         remainingEmiAmount: (totalPayableAmount - weeklyEmi * i).toFixed(2)
                     });
