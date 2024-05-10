@@ -54,6 +54,9 @@ $(document).ready(function() {
 		}
 	});
 });
+
+
+
 // =============== saving borrowers info ================
 $(document).ready(function() {
 	$(".client-save").click(function() {

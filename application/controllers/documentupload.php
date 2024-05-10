@@ -50,6 +50,12 @@ class DocumentUpload extends CI_Controller {
         $this->return_response($uploaded_url);
     }
 
+    public function uploadProfileCard() {
+        $upload_path = 'uploads/';
+        $uploaded_url= $this->upload_document($upload_path);
+        $this->return_response($uploaded_url);
+    }
+
     private function upload_document($upload_path) {
         $response = array(); // Initialize response array
 

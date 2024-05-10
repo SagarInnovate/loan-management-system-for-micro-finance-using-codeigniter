@@ -111,7 +111,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-md-3">
+                                                            <div class="col-md-2">
                                                                 <div class="form-group input-group-prepend">
                                                                     <span class="input-group-text">₹</span>
                                                                     <label for="amount"
@@ -132,6 +132,16 @@
                                                                         id="interestRate" name="interestRate" required>
                                                                 </div>
                                                             </div>
+
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label for="interestRate"
+                                                                        class="bmd-label-floating">EMI Amount</label>
+                                                                    <input type="number" class="form-control"
+                                                                        id="EMIAmount" name="EMIAmount" required>
+                                                                </div>
+                                                            </div>
+
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label for="loanType"
@@ -143,7 +153,7 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-3">
+                                                            <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label for="duration"
                                                                         class="bmd-label-floating">Loan Duration</label>

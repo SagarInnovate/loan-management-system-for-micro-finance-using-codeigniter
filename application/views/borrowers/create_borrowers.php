@@ -45,8 +45,17 @@
                                                                         </button>
                                                                     </span>
                                                                     <input type="text" class="form-control inputFileVisible" placeholder="Choose client picture..">
+                                                                   
                                                                 </div>
+                                                                
                                                             </div>
+                                                            <div id="profileSpinner" class="spinner" style="display:none ;">
+                                                                                                Loading...</div>
+
+                                                                                            <b>
+                                                                                                <div id="profileUploadMsg" style="color:green">
+                                                                                                </div>
+                                                                                            </b>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-8">
@@ -341,6 +350,7 @@
                                                                 <input type="hidden" id="passbook_url" name="passbook_url" value="">
                                                                 <input type="hidden" id="gaadhar_url" name="adhar_uploaded_url" value="">
                                                                 <input type="hidden" id="gpan_url" name="pan_card_uploaded_url" value="">
+                                                                <input type="hidden" id="profile_url" name="pan_card_uploaded_url" value="">
 
 
 
@@ -628,6 +638,11 @@
         document.getElementById('gpanFile').addEventListener('change', function() {
             console.log('Garantors PAN file changed');
             uploadDocument('gpan', 'gpanFile', '#gpanUploadMsg');
+        });
+
+        document.getElementById('client_img').addEventListener('change', function() {
+            console.log('Profile Picture changed');
+            uploadDocument('profile', 'client_img', '#profileUploadMsg');
         });
 
 
