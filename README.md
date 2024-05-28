@@ -89,9 +89,7 @@ For any questions or suggestions, please feel free to reach out:
 
 Thank you for checking out the Loan Management System! We hope it helps you streamline your microfinance operations.
 
----
 
-Feel free to edit the sections to match your project's specifics. Once you have your screenshots and video ready, you can add them to the appropriate sections in the README file.
 
 
 
