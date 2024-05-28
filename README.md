@@ -30,8 +30,8 @@ To set up and run this project, you need the following installed on your system:
 
 1. **Clone the repository**
    ```sh
-   git clone https://github.com/yourusername/loan-management-system.git
-   cd loan-management-system
+   https://github.com/SagarInnovate/loan-management-system-for-micro-finance-using-codeigniter.git
+   cd loan-management-system-for-micro-finance-using-codeigniter
 
 2. **Install dependencies**
    ```sh
@@ -44,7 +44,7 @@ To set up and run this project, you need the following installed on your system:
 6. **Configure the environment**
    Copy application/config/database.php.example to application/config/database.php and fill in your database details.
    ```sh
-   cp application/config/database.php.example application/config/database.php
+   cd application/config/database.php.example application/config/database.php
    
 7. **Adjust Base URL**
    Edit application/config/config.php and set the base URL for your project.
