@@ -42,16 +42,15 @@ To set up and run this project, you need the following installed on your system:
    Import the provided SQL file (database/loan_management_system.sql) into your database.
 
 6. **Configure the environment**
-   Copy application/config/database.php.example to application/config/database.php and fill in your database details.
-   ```sh
-   cd application/config/database.php.example application/config/database.php
+   Go to application/config/database.php and fill in your database details.
+    path : application/config/database.php
    
-7. **Adjust Base URL**
+8. **Adjust Base URL**
    Edit application/config/config.php and set the base URL for your project.
    ```sh
-   $config['base_url'] = 'http://localhost/loan-management-system/';
+   $config['base_url'] = 'http://localhost/Your_folder_name/';
    
-8. **Set up .htaccess**
+9. **Set up .htaccess**
    Ensure your .htaccess file is configured correctly for URL rewriting.
    
 10. **Run the application**
